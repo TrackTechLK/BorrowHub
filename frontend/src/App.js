@@ -11,6 +11,8 @@ import drfProvider from "ra-data-django-rest-framework";
 import { authProvider } from "./utils/authProvider";
 import theme from "./theme";
 import LoginPage from "./components/login";
+import { CategoryList } from "./resources/category/list";
+import { CatoegoryCreate } from "./resources/category/create";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -35,6 +37,7 @@ class App extends Component {
         theme={theme}
       >
         <Resource name="users" list={<ListGuesser />} edit={EditGuesser} />
+        <Resource name="categories" list={<CategoryList/>} edit={EditGuesser} create={CatoegoryCreate} />
       </Admin>
     );
   }

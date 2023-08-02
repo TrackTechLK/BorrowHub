@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group 
 from rest_framework import serializers
+from cms.models import Category
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,4 +14,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id','name','parent_id']
