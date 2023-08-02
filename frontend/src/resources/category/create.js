@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Create, SimpleForm, TextInput, DateInput, required ,ReferenceInput, AutocompleteInput} from 'react-admin';
 
-export const CatoegoryCreate = () => (
+export const CategoryCreate = () => (
     <Create>
         <SimpleForm>
             
             <TextInput source="name"/>
-            <ReferenceInput source="parent_id" reference="categories" >
+            <ReferenceInput source="parent" reference="categories" >
             <AutocompleteInput optionText="name" />
             </ReferenceInput>
             

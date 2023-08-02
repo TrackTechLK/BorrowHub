@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User, Group
+from django.db.models import F
 from rest_framework import viewsets
 from rest_framework import permissions
-from cms.serializers import UserSerializer, GroupSerializer,CategorySerializer
+from cms.serializers import UserSerializer, GroupSerializer, CategorySerializer
 from cms.models import Category
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -20,6 +22,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
