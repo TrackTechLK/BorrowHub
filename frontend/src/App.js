@@ -18,8 +18,11 @@ const httpClient = (url, options = {}) => {
   if (!options.headers) {
     options.headers = new Headers({ Accept: "application/json" });
   }
-  const { access } = JSON.parse(localStorage.getItem("auth"));
-  options.headers.set("Authorization", `Bearer ${access}`);
+  const auth = localStorage.getItem("auth");
+  if (auth) {
+    const { access } = JSON.parse(auth);
+    options.headers.set("Authorization", `Bearer ${access}`);
+  }
   return fetchUtils.fetchJson(url, options);
 };
 
@@ -43,6 +46,8 @@ class App extends Component {
           edit={EditGuesser}
           create={CategoryCreate}
         />
+
+        <Resource name="register" noLayout disableAuthentication />
       </Admin>
     );
   }

@@ -134,7 +134,6 @@ export default function LoginPage() {
                   <CustomTabPanel value={value} index={0}>
                     <Box
                       style={{
-                        width: "30vw",
                         alignContent: "center",
                         justifyContent: "center",
                       }}
@@ -145,7 +144,6 @@ export default function LoginPage() {
                   <CustomTabPanel value={value} index={1}>
                     <Box
                       style={{
-                        width: "30vw",
                         alignContent: "center",
                         justifyContent: "center",
                       }}
