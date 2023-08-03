@@ -14,6 +14,7 @@ import LoginPage from "./components/login";
 import { CategoryList } from "./resources/category/list";
 import { CategoryCreate } from "./resources/category/create";
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -31,20 +32,22 @@ const dataProvider = drfProvider("http://localhost:8000", httpClient);
 class App extends Component {
   render() {
     return (
-      <Admin
-        loginPage={LoginPage}
-        dataProvider={dataProvider}
-        authProvider={authProvider}
-        theme={theme}
-      >
-        <Resource name="users" list={<ListGuesser />} edit={EditGuesser} />
-        <Resource
-          name="categories"
-          list={CategoryList}
-          edit={EditGuesser}
-          create={CategoryCreate}
-        />
-      </Admin>
+      <BrowserRouter>
+        <Admin
+          loginPage={LoginPage}
+          dataProvider={dataProvider}
+          authProvider={authProvider}
+          theme={theme}
+        >
+          <Resource name="users" list={<ListGuesser />} edit={EditGuesser} />
+          <Resource
+            name="categories"
+            list={CategoryList}
+            edit={EditGuesser}
+            create={CategoryCreate}
+          />
+        </Admin>
+      </BrowserRouter>
     );
   }
 }

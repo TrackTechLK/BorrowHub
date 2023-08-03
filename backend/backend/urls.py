@@ -23,15 +23,16 @@ from cms import views
 from django.contrib import admin
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'categories',views.CategoryViewSet)
+router.register(r"users", views.UserViewSet)
+router.register(r"groups", views.GroupViewSet)
+router.register(r"categories", views.CategoryViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("", include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/google/", views.GoogleView.as_view(), name="google"),
 ]

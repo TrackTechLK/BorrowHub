@@ -50,14 +50,6 @@ export const authProvider = {
   },
   checkError: async (error) => {
     const status = error.status;
-    const { searchParams } = new URL(window.location.href);
-    const code = searchParams.get("code");
-    const state = searchParams.get("state");
-    console.log({ code, state });
-    if (code && state) {
-      // We are coming back from the issuer
-      return Promise.reject();
-    }
     if (status === 401) {
       // Token is invalid or expired
       const auth = JSON.parse(localStorage.getItem("auth"));
@@ -105,7 +97,7 @@ export const authProvider = {
     );
 
     // Transform the code to a token via the API
-    const response = await fetch(`${backendURL}/code-to-token`, {
+    const response = await fetch(`${backendURL}/api/google/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code: code, code_verifier }),
@@ -117,21 +109,13 @@ export const authProvider = {
     }
 
     const auth = await response.json();
-
+    localStorage.clear();
     localStorage.setItem("auth", JSON.stringify(auth));
     userManager.clearStaleState();
     cleanup();
     return Promise.resolve();
   },
   checkAuth: async () => {
-    const { searchParams } = new URL(window.location.href);
-    const code = searchParams.get("code");
-    const state = searchParams.get("state");
-    console.log(window.location.href);
-    if (code && state) {
-      // We are coming back from the issuer
-      return;
-    }
     const { access } = JSON.parse(localStorage.getItem("auth"));
     if (!access) {
       throw new Error();
