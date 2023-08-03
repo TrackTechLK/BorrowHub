@@ -11,8 +11,9 @@ import drfProvider from "ra-data-django-rest-framework";
 import { authProvider } from "./utils/authProvider";
 import theme from "./theme";
 import LoginPage from "./components/login";
-import { CategoryList } from "./resources/category/list";
-import { CategoryCreate } from "./resources/category/create";
+import { CategoryList, CommunityList, CommunityRequestList, UserCommunityList } from "./resources/category/list";
+import { CategoryCreate, CommunityCreate, CommunityRequestCreate, UserCommunityCreate } from "./resources/category/create";
+
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -37,12 +38,19 @@ class App extends Component {
         theme={theme}
       >
         <Resource name="users" list={<ListGuesser />} edit={EditGuesser} />
+
         <Resource
           name="categories"
           list={CategoryList}
           edit={EditGuesser}
           create={CategoryCreate}
         />
+
+        <Resource name="communities" list={CommunityList} edit={EditGuesser} create={CommunityCreate}/>
+
+        <Resource name="community_requests" list={CommunityRequestList} edit={EditGuesser} create={CommunityRequestCreate} />
+
+        <Resource name="user_communities" list={UserCommunityList} edit={EditGuesser} create={UserCommunityCreate}/>
       </Admin>
     );
   }
