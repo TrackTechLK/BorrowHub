@@ -13,6 +13,7 @@ import theme from "./theme";
 import LoginPage from "./components/login";
 import { CategoryList } from "./resources/category/list";
 import { CategoryCreate } from "./resources/category/create";
+import "./App.css";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {

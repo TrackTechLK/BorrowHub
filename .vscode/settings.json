@@ -1,0 +1,5 @@
+{
+    "javascript.preferences.quoteStyle": "double",
+    "prettier.singleQuote": false,
+    "prettier.jsxSingleQuote": false
+}
