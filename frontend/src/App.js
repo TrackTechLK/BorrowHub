@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   fetchUtils,
   Admin,
@@ -6,18 +6,18 @@ import {
   Resource,
   ListGuesser,
   EditGuesser,
-} from 'react-admin';
-import { BorrowList } from './resources/borrow/list';
-import { ItemList } from './resources/item/list';
-import { BorrowRequestList } from './resources/borrowrequest/list';
-import { LentConfirmationList } from './resources/lendconfirmation/list';
-import { ReturnConfirmationList } from './resources/returnconfirmation/list';
-import { ItemUserList } from './resources/itemuser/list';
+} from "react-admin";
+import { BorrowList } from "./resources/borrow/list";
+import { ItemList } from "./resources/item/list";
+import { BorrowRequestList } from "./resources/borrowrequest/list";
+import { LentConfirmationList } from "./resources/lendconfirmation/list";
+import { ReturnConfirmationList } from "./resources/returnconfirmation/list";
+import { ItemUserList } from "./resources/itemuser/list";
 import drfProvider from "ra-data-django-rest-framework";
 import { authProvider } from "./utils/authProvider";
 import theme from "./theme";
 import LoginPage from "./components/login";
-import { CategoryList} from "./resources/category/list";
+import { CategoryList } from "./resources/category/list";
 import { CommunityList } from "./resources/community/list";
 import { CommunityRequestList } from "./resources/communityRequest/list";
 import { UserCommunityList } from "./resources/userCommunity/list";
@@ -26,10 +26,11 @@ import { CommunityCreate } from "./resources/community/create";
 import { CommunityRequestCreate } from "./resources/communityRequest/create";
 import { UserCommunityCreate } from "./resources/userCommunity/create";
 import { BrowserRouter } from "react-router-dom";
+import { CustomLayout } from "./components/Layout";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
-    options.headers = new Headers({ Accept: 'application/json' });
+    options.headers = new Headers({ Accept: "application/json" });
   }
   const auth = localStorage.getItem("auth");
   if (auth) {
@@ -39,7 +40,7 @@ const httpClient = (url, options = {}) => {
   return fetchUtils.fetchJson(url, options);
 };
 
-const dataProvider = drfProvider('http://localhost:8000', httpClient);
+const dataProvider = drfProvider("http://localhost:8000", httpClient);
 
 // import { PostList } from './posts'
 
@@ -47,45 +48,46 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-      <Admin
-        loginPage={LoginPage}
-        dataProvider={dataProvider}
-        authProvider={authProvider}
-        theme={theme}
-      >
-        <Resource name='users' list={<ListGuesser />} edit={EditGuesser} />
+        <Admin
+          loginPage={LoginPage}
+          dataProvider={dataProvider}
+          authProvider={authProvider}
+          theme={theme}
+          layout={CustomLayout}
+        >
+          <Resource name="users" list={<ListGuesser />} edit={EditGuesser} />
 
-        <Resource
-          name='categories'
-          list={CategoryList}
-          edit={EditGuesser}
-          create={CategoryCreate}
-        />
-        <Resource name='borrows' list={BorrowList} edit={EditGuesser} />
-        <Resource
-          name='borrowrequests'
-          list={BorrowRequestList}
-          edit={EditGuesser}
-        />
-        <Resource name='items' list={ItemList} edit={EditGuesser} />
-        <Resource name='itemusers' list={ItemUserList} edit={EditGuesser} />
-        <Resource
-          name='lendconfirmations'
-          list={LentConfirmationList}
-          edit={EditGuesser}
-        />
-        <Resource
-          name='returnconfirmations'
-          list={ReturnConfirmationList}
-          edit={EditGuesser}
-        />
-        <Resource name='borrows' list={BorrowList} edit={EditGuesser} />
-        <Resource
-          name='borrowrequests'
-          list={BorrowRequestList}
-          edit={EditGuesser}
-        />
-        <Resource name='users' list={ListGuesser} edit={EditGuesser} />
+          <Resource
+            name="categories"
+            list={CategoryList}
+            edit={EditGuesser}
+            create={CategoryCreate}
+          />
+          <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
+          <Resource
+            name="borrowrequests"
+            list={BorrowRequestList}
+            edit={EditGuesser}
+          />
+          <Resource name="items" list={ItemList} edit={EditGuesser} />
+          <Resource name="itemusers" list={ItemUserList} edit={EditGuesser} />
+          <Resource
+            name="lendconfirmations"
+            list={LentConfirmationList}
+            edit={EditGuesser}
+          />
+          <Resource
+            name="returnconfirmations"
+            list={ReturnConfirmationList}
+            edit={EditGuesser}
+          />
+          <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
+          <Resource
+            name="borrowrequests"
+            list={BorrowRequestList}
+            edit={EditGuesser}
+          />
+          <Resource name="users" list={ListGuesser} edit={EditGuesser} />
 
           <Resource
             name="communities"
