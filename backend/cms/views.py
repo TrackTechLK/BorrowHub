@@ -155,6 +155,10 @@ class CommunityViewSet(viewsets.ModelViewSet):
     serializer_class = CommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def create(self, request, *args, **kwargs):
+        request.data['creator'] = request.user.id
+        return super().create(request, *args, **kwargs)
+
 class CommunityRequestViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -162,6 +166,26 @@ class CommunityRequestViewSet(viewsets.ModelViewSet):
     queryset = CommunityRequest.objects.all()
     serializer_class = CommunityRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        
+        request.data['user'] = request.user.id
+        
+        return super().create(request, *args, **kwargs)
+    
+class CommunityRequestViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = CommunityRequest.objects.all()
+    serializer_class = CommunityRequestSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        
+        request.data['user'] = request.user.id
+        
+        return super().create(request, *args, **kwargs)
 
 class UserCommunityViewSet(viewsets.ModelViewSet):
     """
