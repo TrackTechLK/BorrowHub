@@ -12,7 +12,7 @@ phone_regex = RegexValidator(
 class Item(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    category = models.CharField(max_length=100)
+    category = models.ForeignKey('Category', related_name='items', on_delete=models.PROTECT)
 
 class ItemUser(models.Model):
     id = models.AutoField(primary_key=True)
