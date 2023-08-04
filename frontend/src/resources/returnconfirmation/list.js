@@ -28,7 +28,7 @@ const ConfirmButton = (record) => {
   };
 
   return (
-    <Button variant="contained" onClick={onConfirm}>
+    <Button variant="contained" onClick={onConfirm} disabled={record.received}>
       Confirm
     </Button>
   );
@@ -46,7 +46,7 @@ const DeclineButton = (record) => {
   };
 
   return (
-    <Button variant="contained" color="error" onClick={onDecline}>
+    <Button variant="contained" color="error" onClick={onDecline} disabled={record.received}>
       Decline
     </Button>
   );
