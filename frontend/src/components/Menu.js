@@ -30,6 +30,11 @@ export const CustomMenu = () => (
     <AwesomeDivider title={"Social"} />
     <Menu.ResourceItem name="communities" />
     <AwesomeDivider title={"Others"} />
+    <Menu.ResourceItem name="borrowrequests" />
+    <Menu.ResourceItem name="lendconfirmations" />
+    <Menu.ResourceItem name="returnconfirmations" />
+    <Menu.ResourceItem name="community_requests" />
+    <Menu.ResourceItem name="user_communities" />
     {/* <Menu.Item to="/custom-route" primaryText="Miscellaneous" leftIcon={<LabelIcon />}/> */}
   </Menu>
 );
