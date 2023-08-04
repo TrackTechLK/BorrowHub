@@ -27,9 +27,9 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = "__all__"
 
-class ItemUserSerializer(serializers.ModelSerializer):
+class ItemTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ItemUser
+        model = ItemType
         fields = "__all__"
 
 class BorrowSerializer(serializers.ModelSerializer):

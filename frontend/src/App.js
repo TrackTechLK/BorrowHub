@@ -8,11 +8,11 @@ import {
   EditGuesser,
 } from "react-admin";
 import { BorrowList } from "./resources/borrow/list";
-import { ItemList } from "./resources/item/list";
+import { ItemTypeList } from "./resources/itemType/list";
 import { BorrowRequestList } from "./resources/borrowrequest/list";
 import { LentConfirmationList } from "./resources/lendconfirmation/list";
 import { ReturnConfirmationList } from "./resources/returnconfirmation/list";
-import { ItemUserList } from "./resources/itemuser/list";
+import { ItemList } from "./resources/item/list";
 import drfProvider from "ra-data-django-rest-framework";
 import { authProvider } from "./utils/authProvider";
 import theme from "./theme";
@@ -31,7 +31,8 @@ import { CustomLayout } from "./components/Layout";
 import PeopleIcon from "@mui/icons-material/People";
 import CategoryIcon from "@mui/icons-material/Category";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import GroupsIcon from '@mui/icons-material/Groups';
+import GroupsIcon from "@mui/icons-material/Groups";
+import { ItemCreate } from "./resources/item/create";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -80,12 +81,17 @@ class App extends Component {
             edit={EditGuesser}
           />
           <Resource
-            name="items"
-            list={ItemList}
+            name="itemtypes"
+            list={ItemTypeList}
             edit={EditGuesser}
             icon={InventoryIcon}
           />
-          <Resource name="itemusers" list={ItemUserList} edit={EditGuesser} />
+          <Resource
+            name="items"
+            list={ItemList}
+            edit={EditGuesser}
+            create={ItemCreate}
+          />
           <Resource
             name="lendconfirmations"
             list={LentConfirmationList}
@@ -97,7 +103,6 @@ class App extends Component {
             edit={EditGuesser}
           />
           <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
-
 
           <Resource
             name="communities"

@@ -61,14 +61,18 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def create(self, request, *args, **kwargs):
+        request.data["owner"] = request.user.id
+        return super().create(request, *args, **kwargs)
 
-class ItemUserViewSet(viewsets.ModelViewSet):
+
+class ItemTypeViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
 
-    queryset = ItemUser.objects.all()
-    serializer_class = ItemUserSerializer
+    queryset = ItemType.objects.all()
+    serializer_class = ItemTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
