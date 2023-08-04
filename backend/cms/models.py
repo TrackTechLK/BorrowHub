@@ -22,7 +22,7 @@ class Community(models.Model):
     name = models.CharField(max_length=50)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_communities")
     created_date = models.DateField(_("Date"),  auto_now_add=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
     users = models.ManyToManyField(User, through='UserCommunity', related_name='communities')
    
 

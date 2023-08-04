@@ -5,7 +5,7 @@ export const CommunityCreate = () => (
     <Create>
         <SimpleForm>
             <TextInput source="name"/>
-            <ReferenceInput source="creator" reference='users'/>
+            {/* <ReferenceInput source="creator" reference='users'/> */}
             {/* <DateInput source="created_date"/> */}
             <ReferenceInput source="category" reference='categories'>
             <AutocompleteInput optionText="name" />
@@ -17,7 +17,7 @@ export const CommunityCreate = () => (
 export const CommunityRequestCreate = () => (
     <Create>
         <SimpleForm>
-            <ReferenceInput source="user" reference='users'/>
+            {/* <ReferenceInput source="user" reference='users'/> */}
             <ReferenceInput source="community" reference='communities'>
             <AutocompleteInput optionText="name" />
                 </ReferenceInput> 
