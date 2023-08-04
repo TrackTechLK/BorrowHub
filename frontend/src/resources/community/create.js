@@ -1,20 +1,15 @@
 import * as React from 'react';
 import { Create, SimpleForm, TextInput, DateInput, required ,ReferenceInput, AutocompleteInput, BooleanInput} from 'react-admin';
 
-
-
-
-
-
-export const CategoryCreate = () => (
+export const CommunityCreate = () => (
     <Create>
         <SimpleForm>
-            
             <TextInput source="name"/>
-            <ReferenceInput source="parent" reference="categories" >
+            {/* <ReferenceInput source="creator" reference='users'/> */}
+            {/* <DateInput source="created_date"/> */}
+            <ReferenceInput source="category" reference='categories'>
             <AutocompleteInput optionText="name" />
-            </ReferenceInput>
-            
+                </ReferenceInput> 
         </SimpleForm>
     </Create>
-);
+)

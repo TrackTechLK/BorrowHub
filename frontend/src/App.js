@@ -11,8 +11,14 @@ import drfProvider from "ra-data-django-rest-framework";
 import { authProvider } from "./utils/authProvider";
 import theme from "./theme";
 import LoginPage from "./components/login";
-import { CategoryList, CommunityList, CommunityRequestList, UserCommunityList } from "./resources/category/list";
-import { CategoryCreate, CommunityCreate, CommunityRequestCreate, UserCommunityCreate } from "./resources/category/create";
+import { CategoryList} from "./resources/category/list";
+import { CommunityList } from "./resources/community/list";
+import { CommunityRequestList } from "./resources/communityRequest/list";
+import { UserCommunityList } from "./resources/userCommunity/list";
+import { CategoryCreate } from "./resources/category/create";
+import { CommunityCreate } from "./resources/community/create";
+import { CommunityRequestCreate } from "./resources/communityRequest/create";
+import { UserCommunityCreate } from "./resources/userCommunity/create";
 
 
 const httpClient = (url, options = {}) => {
