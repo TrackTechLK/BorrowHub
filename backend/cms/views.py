@@ -51,53 +51,66 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
 class ItemViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class ItemUserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = ItemUser.objects.all()
     serializer_class = ItemUserSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class BorrowViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = Borrow.objects.all()
     serializer_class = BorrowSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class BorrowRequestViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = BorrowRequest.objects.all()
     serializer_class = BorrowRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class LendConfirmationViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = LendConfirmation.objects.all()
     serializer_class = LendConfirmationSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class ReturnConfirmationViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = ReturnConfirmation.objects.all()
     serializer_class = ReturnConfirmationSerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 class GoogleView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -147,53 +160,61 @@ class GoogleView(APIView):
         response["access"] = str(token.access_token)
         response["refresh"] = str(token)
         return Response(response)
+
+
 class CommunityViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = Community.objects.all()
     serializer_class = CommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        request.data['creator'] = request.user.id
+        request.data["creator"] = request.user.id
         return super().create(request, *args, **kwargs)
+
 
 class CommunityRequestViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = CommunityRequest.objects.all()
     serializer_class = CommunityRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        
-        request.data['user'] = request.user.id
-        
+        request.data["user"] = request.user.id
+
         return super().create(request, *args, **kwargs)
-    
+
+
 class CommunityRequestViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = CommunityRequest.objects.all()
     serializer_class = CommunityRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        
-        request.data['user'] = request.user.id
-        
+        request.data["user"] = request.user.id
+
         return super().create(request, *args, **kwargs)
+
 
 class UserCommunityViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+
     queryset = UserCommunity.objects.all()
     serializer_class = UserCommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
+
 
 # Used to register a user
 class RegisterView(generics.CreateAPIView):
