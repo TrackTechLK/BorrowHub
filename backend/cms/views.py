@@ -4,6 +4,9 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from cms.serializers import *
 from cms.models import *
+from rest_framework import generics
+from django.contrib.auth.models import User
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -79,3 +82,32 @@ class ReturnConfirmationViewSet(viewsets.ModelViewSet):
     queryset = ReturnConfirmation.objects.all()
     serializer_class = ReturnConfirmationSerializer
     permission_classes = [permissions.IsAuthenticated]
+class CommunityViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Community.objects.all()
+    serializer_class = CommunitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class CommunityRequestViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = CommunityRequest.objects.all()
+    serializer_class = CommunityRequestSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class UserCommunityViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = UserCommunity.objects.all()
+    serializer_class = UserCommunitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+# Used to register a user
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = RegisterSerializer
