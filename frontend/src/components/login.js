@@ -1,7 +1,10 @@
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
+import CircularProgress from "@mui/material/CircularProgress";
+import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -12,7 +15,8 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Login, LoginForm } from "react-admin";
+import { LoginForm, useLogin } from "react-admin";
+import { Login } from "react-admin";
 import RegisterForm from "./registerForm";
 
 function Copyright(props) {
@@ -23,12 +27,16 @@ function Copyright(props) {
       align="center"
       display={"flex"}
       flexDirection={"row"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      gap={1}
       {...props}
     >
-      <p>Made with &hearts; by </p>
+      Made with &hearts; by
       <a
+        className="TrackTechLK-Link"
         color="inherit"
-        //   href="https://mui.com/"
+        href="https://github.com/TrackTechLK"
       >
         TrackTech
       </a>{" "}
@@ -68,13 +76,12 @@ function a11yProps(index) {
 }
 
 export default function LoginPage() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const [loading, setLoading] = useState(false);
+  const login = useLogin();
+
+  const handleGoogleLogin = () => {
+    setLoading(true);
+    login({ provider: "google" });
   };
 
   const [value, setValue] = React.useState(0);
@@ -152,6 +159,17 @@ export default function LoginPage() {
                     </Box>
                   </CustomTabPanel>
                 </Box>
+                <Button onClick={handleGoogleLogin}>
+                  {loading && (
+                    <CircularProgress
+                      sx={{ marginRight: 1 }}
+                      size={18}
+                      thickness={2}
+                      color="success"
+                    />
+                  )}
+                  Login With Google
+                </Button>
                 {/* <Copyright /> */}
               </Card>
             </div>

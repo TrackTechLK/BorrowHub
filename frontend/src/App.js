@@ -25,7 +25,7 @@ import { CategoryCreate } from "./resources/category/create";
 import { CommunityCreate } from "./resources/community/create";
 import { CommunityRequestCreate } from "./resources/communityRequest/create";
 import { UserCommunityCreate } from "./resources/userCommunity/create";
-
+import { BrowserRouter } from "react-router-dom";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -46,6 +46,7 @@ const dataProvider = drfProvider('http://localhost:8000', httpClient);
 class App extends Component {
   render() {
     return (
+      <BrowserRouter>
       <Admin
         loginPage={LoginPage}
         dataProvider={dataProvider}
@@ -86,13 +87,29 @@ class App extends Component {
         />
         <Resource name='users' list={ListGuesser} edit={EditGuesser} />
 
-        <Resource name="communities" list={CommunityList} edit={EditGuesser} create={CommunityCreate}/>
+          <Resource
+            name="communities"
+            list={CommunityList}
+            edit={EditGuesser}
+            create={CommunityCreate}
+          />
 
-        <Resource name="community_requests" list={CommunityRequestList} edit={EditGuesser} create={CommunityRequestCreate} />
+          <Resource
+            name="community_requests"
+            list={CommunityRequestList}
+            edit={EditGuesser}
+            create={CommunityRequestCreate}
+          />
 
-        <Resource name="user_communities" list={UserCommunityList} edit={EditGuesser} create={UserCommunityCreate}/>
-        <Resource name="register" noLayout disableAuthentication />
-      </Admin>
+          <Resource
+            name="user_communities"
+            list={UserCommunityList}
+            edit={EditGuesser}
+            create={UserCommunityCreate}
+          />
+          <Resource name="register" noLayout disableAuthentication />
+        </Admin>
+      </BrowserRouter>
     );
   }
 }
