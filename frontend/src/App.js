@@ -13,6 +13,12 @@ import theme from './theme';
 import LoginPage from './components/login';
 import { CategoryList } from './resources/category/list';
 import { BorrowList } from './resources/borrow/list';
+import { ItemList } from './resources/item/list';
+import { BorrowRequestList } from './resources/borrowrequest/list';
+import { LentConfirmationList } from './resources/lendconfirmation/list';
+import { ReturnConfirmationList } from './resources/returnconfirmation/list';
+import { ItemUserList } from './resources/itemuser/list';
+
 import { CategoryCreate } from './resources/category/create';
 
 const httpClient = (url, options = {}) => {
@@ -45,6 +51,30 @@ class App extends Component {
           create={CategoryCreate}
         />
         <Resource name='borrows' list={BorrowList} edit={EditGuesser} />
+        <Resource
+          name='borrowrequests'
+          list={BorrowRequestList}
+          edit={EditGuesser}
+        />
+        <Resource name='items' list={ItemList} edit={EditGuesser} />
+        <Resource name='itemusers' list={ItemUserList} edit={EditGuesser} />
+        <Resource
+          name='lendconfirmations'
+          list={LentConfirmationList}
+          edit={EditGuesser}
+        />
+        <Resource
+          name='returnconfirmations'
+          list={ReturnConfirmationList}
+          edit={EditGuesser}
+        />
+        <Resource name='borrows' list={BorrowList} edit={EditGuesser} />
+        <Resource
+          name='borrowrequests'
+          list={BorrowRequestList}
+          edit={EditGuesser}
+        />
+        <Resource name='users' list={ListGuesser} edit={EditGuesser} />
       </Admin>
     );
   }

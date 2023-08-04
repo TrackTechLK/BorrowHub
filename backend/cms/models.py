@@ -14,31 +14,31 @@ class Item(models.Model):
 
 class ItemUser(models.Model):
     id = models.AutoField(primary_key=True)
-    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, null=False)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False)
     owner = models.ForeignKey(User,related_name='owner',on_delete=models.CASCADE, null=False)
     current_user = models.ForeignKey(User,related_name='current_user',on_delete=models.CASCADE,null=False)
 
 class Borrow(models.Model):
     id = models.AutoField(primary_key=True)
-    item_user_id = models.ForeignKey(ItemUser,on_delete=models.CASCADE, null=False)
+    item_user = models.ForeignKey(ItemUser,on_delete=models.CASCADE, null=False)
     borrower = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
     borrow_date = models.DateField(null=False)
 
 class BorrowRequest(models.Model):
     id = models.AutoField(primary_key=True)
-    item_id = models.ForeignKey(Item,on_delete=models.CASCADE, null=False)
+    item = models.ForeignKey(Item,on_delete=models.CASCADE, null=False)
     description = models.CharField(max_length=500)
     accepted = models.BooleanField(default=False)
 
 class LendConfirmation(models.Model):
-    BorrowRequest_id = models.ForeignKey(BorrowRequest,on_delete=models.CASCADE, null=False)
+    borrow_request = models.ForeignKey(BorrowRequest,on_delete=models.CASCADE, null=False)
     lent = models.BooleanField(null=False)
     received = models.BooleanField(null=False)
     lent_date = models.DateField()
     received_date = models.DateField()
 
 class ReturnConfirmation(models.Model):
-    Borrow_id = models.ForeignKey(Borrow,on_delete=models.CASCADE, null=False)
+    borrow = models.ForeignKey(Borrow,on_delete=models.CASCADE, null=False)
     returned = models.BooleanField(null=False)
     received = models.BooleanField(null=False)
     lent_date = models.DateField()
