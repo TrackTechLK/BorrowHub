@@ -53,9 +53,19 @@ class ReturnConfirmationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class CommunitySerializer(serializers.ModelSerializer):
+
+    creator_username = serializers.SerializerMethodField()
+    category_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Community
         fields = "__all__"
+    
+    def get_creator_username(self, obj):
+        return obj.creator.username
+    
+    def get_category_name(self, obj):
+        return obj.category.name
 
 class CommunityRequestSerializer(serializers.ModelSerializer):
     class Meta:
