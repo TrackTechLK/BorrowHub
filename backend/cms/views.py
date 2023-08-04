@@ -10,8 +10,14 @@ from rest_framework.response import Response
 import base64
 import requests
 from rest_framework import permissions
+from cms.serializers import UserSerializer, GroupSerializer, CategorySerializer, CommunitySerializer, CommunityRequestSerializer, UserCommunitySerializer
+from cms.models import Category , Community, CommunityRequest, UserCommunity
+from rest_framework import generics
 from cms.serializers import UserSerializer, GroupSerializer, CategorySerializer
 from cms.models import Category
+from django.contrib.auth.models import User
+from cms.serializers import RegisterSerializer
+
 
 from dotenv import load_dotenv
 import os
@@ -97,3 +103,32 @@ class GoogleView(APIView):
         response["access"] = str(token.access_token)
         response["refresh"] = str(token)
         return Response(response)
+class CommunityViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Community.objects.all()
+    serializer_class = CommunitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class CommunityRequestViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = CommunityRequest.objects.all()
+    serializer_class = CommunityRequestSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class UserCommunityViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = UserCommunity.objects.all()
+    serializer_class = UserCommunitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+# Used to register a user
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = RegisterSerializer

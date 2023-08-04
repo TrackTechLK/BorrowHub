@@ -17,22 +17,27 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from cms.views import RegisterView
 from django.urls import include, path
 from rest_framework import routers
 from cms import views
 from django.contrib import admin
 
 router = routers.DefaultRouter()
-router.register(r"users", views.UserViewSet)
-router.register(r"groups", views.GroupViewSet)
-router.register(r"categories", views.CategoryViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+router.register(r'categories', views.CategoryViewSet)
+router.register(r'communities', views.CommunityViewSet)
+router.register(r'community_requests', views.CommunityRequestViewSet)
+router.register(r'user_communities', views.UserCommunityViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path("", include(router.urls)),
-    path("admin/", admin.site.urls),
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path('', include(router.urls)),
+    path('admin/', admin.site.urls),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', RegisterView.as_view(), name='auth_register'),
     path("api/google/", views.GoogleView.as_view(), name="google"),
 ]

@@ -6,8 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -16,6 +16,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { LoginForm, useLogin } from "react-admin";
+import { Login } from "react-admin";
+import RegisterForm from "./registerForm";
 
 function Copyright(props) {
   return (
@@ -46,6 +48,33 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const login = useLogin();
@@ -53,6 +82,12 @@ export default function LoginPage() {
   const handleGoogleLogin = () => {
     setLoading(true);
     login({ provider: "google" });
+  };
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
   return (
@@ -91,15 +126,39 @@ export default function LoginPage() {
                 placeContent: "center",
               }}
             >
-              <Card
-                style={{ padding: 40 }}
-                elevation={5}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <LoginForm />
+              <Card style={{ padding: 40 }} elevation={5}>
+                <Box sx={{ width: "100%" }}>
+                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <Tabs
+                      value={value}
+                      onChange={handleChange}
+                      aria-label="basic tabs example"
+                    >
+                      <Tab label="Login" {...a11yProps(0)} />
+                      <Tab label="Register" {...a11yProps(1)} />
+                    </Tabs>
+                  </Box>
+                  <CustomTabPanel value={value} index={0}>
+                    <Box
+                      style={{
+                        alignContent: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <LoginForm />
+                    </Box>
+                  </CustomTabPanel>
+                  <CustomTabPanel value={value} index={1}>
+                    <Box
+                      style={{
+                        alignContent: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <RegisterForm />
+                    </Box>
+                  </CustomTabPanel>
+                </Box>
                 <Button onClick={handleGoogleLogin}>
                   {loading && (
                     <CircularProgress
@@ -111,7 +170,7 @@ export default function LoginPage() {
                   )}
                   Login With Google
                 </Button>
-                <Copyright />
+                {/* <Copyright /> */}
               </Card>
             </div>
           </div>
