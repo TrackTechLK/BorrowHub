@@ -2,13 +2,10 @@ from django.contrib.auth.models import User, Group
 from django.db.models import F
 from rest_framework import viewsets
 from rest_framework import permissions
-from cms.serializers import UserSerializer, GroupSerializer, CategorySerializer, CommunitySerializer, CommunityRequestSerializer, UserCommunitySerializer
-from cms.models import Category , Community, CommunityRequest, UserCommunity
+from cms.serializers import *
+from cms.models import *
 from rest_framework import generics
-from cms.serializers import UserSerializer, GroupSerializer, CategorySerializer
-from cms.models import Category
 from django.contrib.auth.models import User
-from cms.serializers import RegisterSerializer
 
 
 
@@ -38,6 +35,53 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class ItemViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ItemUserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = ItemUser.objects.all()
+    serializer_class = ItemUserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class BorrowViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Borrow.objects.all()
+    serializer_class = BorrowSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class BorrowRequestViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = BorrowRequest.objects.all()
+    serializer_class = BorrowRequestSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class LendConfirmationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = LendConfirmation.objects.all()
+    serializer_class = LendConfirmationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ReturnConfirmationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = ReturnConfirmation.objects.all()
+    serializer_class = ReturnConfirmationSerializer
+    permission_classes = [permissions.IsAuthenticated]
 class CommunityViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.

@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from cms.models import Category,Community,CommunityRequest,UserCommunity
-from cms.models import Category
+from cms.models import *
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
@@ -21,6 +20,36 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+        fields = "__all__"
+
+class ItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = "__all__"
+
+class ItemUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemUser
+        fields = "__all__"
+
+class BorrowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Borrow
+        fields = "__all__"
+
+class BorrowRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BorrowRequest
+        fields = "__all__"
+
+class LendConfirmationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LendConfirmation
+        fields = "__all__"
+
+class ReturnConfirmationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReturnConfirmation
         fields = "__all__"
 
 class CommunitySerializer(serializers.ModelSerializer):

@@ -8,6 +8,45 @@ phone_regex = RegexValidator(
     regex=r'^\+?1?\d{9,12}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
 # Create your models here.
+
+class Item(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    category = models.CharField(max_length=100)
+
+class ItemUser(models.Model):
+    id = models.AutoField(primary_key=True)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False)
+    owner = models.ForeignKey(User,related_name='owner',on_delete=models.CASCADE, null=False)
+    current_user = models.ForeignKey(User,related_name='current_user',on_delete=models.CASCADE,null=False)
+
+class Borrow(models.Model):
+    id = models.AutoField(primary_key=True)
+    item_user = models.ForeignKey(ItemUser,on_delete=models.CASCADE, null=False)
+    borrower = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    borrow_date = models.DateField(null=False)
+
+class BorrowRequest(models.Model):
+    id = models.AutoField(primary_key=True)
+    item = models.ForeignKey(Item,on_delete=models.CASCADE, null=False)
+    description = models.CharField(max_length=500)
+    accepted = models.BooleanField(default=False)
+
+class LendConfirmation(models.Model):
+    borrow_request = models.ForeignKey(BorrowRequest,on_delete=models.CASCADE, null=False)
+    lent = models.BooleanField(null=False)
+    received = models.BooleanField(null=False)
+    lent_date = models.DateField()
+    received_date = models.DateField()
+
+class ReturnConfirmation(models.Model):
+    borrow = models.ForeignKey(Borrow,on_delete=models.CASCADE, null=False)
+    returned = models.BooleanField(null=False)
+    received = models.BooleanField(null=False)
+    lent_date = models.DateField()
+    received_date = models.DateField()
+
+
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
@@ -17,6 +56,7 @@ class Category(models.Model):
         blank=True,
         on_delete=models.CASCADE,
     )
+    
 class Community(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
