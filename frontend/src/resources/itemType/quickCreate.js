@@ -8,6 +8,8 @@ import {
   useCreate,
   useNotify,
   Form,
+  ReferenceInput,
+  AutocompleteInput,
 } from "react-admin";
 import IconContentAdd from "@mui/icons-material/Add";
 import IconCancel from "@mui/icons-material/Cancel";
@@ -72,7 +74,13 @@ function ItemTypeQuickCreateButton({ onChange }) {
               }}
             >
               <TextInput source="name" validate={required()} />
-              <TextInput source="category" validate={required()} />
+              <ReferenceInput
+                source="category"
+                reference="categories"
+                validate={required()}
+              >
+                <AutocompleteInput optionText="name" validate={required()} />
+              </ReferenceInput>
             </DialogContent>
             <DialogActions>
               <Button

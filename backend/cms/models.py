@@ -12,10 +12,21 @@ phone_regex = RegexValidator(
 # Create your models here.
 
 
+class Category(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    parent = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+
+
 class ItemType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    category = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False)
 
 
 class Item(models.Model):
@@ -59,17 +70,6 @@ class ReturnConfirmation(models.Model):
     received = models.BooleanField(null=False)
     lent_date = models.DateField()
     received_date = models.DateField()
-
-
-class Category(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    parent = models.ForeignKey(
-        "self",
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-    )
 
 
 class Community(models.Model):
