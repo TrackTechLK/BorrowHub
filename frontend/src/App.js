@@ -31,7 +31,8 @@ import { CustomLayout } from "./components/Layout";
 import PeopleIcon from "@mui/icons-material/People";
 import CategoryIcon from "@mui/icons-material/Category";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import GroupsIcon from '@mui/icons-material/Groups';
+import GroupsIcon from "@mui/icons-material/Groups";
+import { CommunityShow } from "./resources/community/show";
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -98,12 +99,12 @@ class App extends Component {
           />
           <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
 
-
           <Resource
             name="communities"
             list={CommunityList}
             edit={EditGuesser}
             create={CommunityCreate}
+            show={CommunityShow}
             icon={GroupsIcon}
           />
 

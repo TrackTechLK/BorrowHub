@@ -26,10 +26,11 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_parent_name(self, obj):
-        if(obj.parent):
+        if (obj.parent):
             return obj.parent.name
         else:
             return None
+
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -90,9 +91,15 @@ class CommunityRequestSerializer(serializers.ModelSerializer):
 
 
 class UserCommunitySerializer(serializers.ModelSerializer):
+
+    username = serializers.SerializerMethodField()
+
     class Meta:
         model = UserCommunity
         fields = "__all__"
+
+    def get_username(self, obj):
+        return obj.user.username
 
 # Used to register a user
 

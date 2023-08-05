@@ -18,8 +18,7 @@ const ConfirmButton = (record) => {
   const [update, { isLoading, error }] = useUpdate();
 
   const onConfirm = () => {
-    console.log("update");
-    //create returnconfirmation
+    //TODO change current_user on item create to null
     update("returnconfirmations", {
       id: record.id,
       data: { received: true, received_date: new Date() },
@@ -46,7 +45,12 @@ const DeclineButton = (record) => {
   };
 
   return (
-    <Button variant="contained" color="error" onClick={onDecline} disabled={record.received}>
+    <Button
+      variant="contained"
+      color="error"
+      onClick={onDecline}
+      disabled={record.received}
+    >
       Decline
     </Button>
   );

@@ -214,6 +214,7 @@ class UserCommunityViewSet(viewsets.ModelViewSet):
     queryset = UserCommunity.objects.all()
     serializer_class = UserCommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
+    filterset_fields = ['is_admin']
 
 
 # Used to register a user

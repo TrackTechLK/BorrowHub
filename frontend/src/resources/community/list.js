@@ -9,8 +9,8 @@ import {
 import EfficientReferenceField from "../../components/EfficientReferenceField";
 
 export const CommunityList = () => (
-  <List>
-    <Datagrid>
+  <List >
+    <Datagrid rowClick="show">
       <TextField source="id" />
       <TextField source="name" />
       {/* <ReferenceField source="creator" reference="users" /> */}

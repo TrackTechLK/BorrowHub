@@ -16,6 +16,8 @@ class Item(models.Model):
     category = models.ForeignKey(
         'Category', related_name='items', on_delete=models.PROTECT)
 
+    # TODO may be add unique together for name and category
+
 
 class ItemUser(models.Model):
     id = models.AutoField(primary_key=True)
@@ -24,6 +26,9 @@ class ItemUser(models.Model):
         User, related_name='owner', on_delete=models.CASCADE, null=False)
     current_user = models.ForeignKey(
         User, related_name='current_user', on_delete=models.CASCADE, null=False, blank=True)
+
+    class Meta:
+        unique_together = ('item', 'owner')
 
 
 class Borrow(models.Model):
@@ -80,15 +85,24 @@ class Community(models.Model):
     users = models.ManyToManyField(
         User, through='UserCommunity', related_name='communities')
 
+    # TODO may be add unique together for name and creator
+
 
 class UserCommunity(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='user_communities')
+    community = models.ForeignKey(
+        Community, on_delete=models.CASCADE, related_name="user_communities")
     is_admin = models.BooleanField()
+
+    class Meta:
+        unique_together = ('user', 'community')
 
 
 class CommunityRequest(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
+
+    # TODO maybe add unique together to user and community
