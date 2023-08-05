@@ -25,12 +25,16 @@ import { CategoryCreate } from "./resources/category/create";
 import { CommunityCreate } from "./resources/community/create";
 import { CommunityRequestCreate } from "./resources/communityRequest/create";
 import { UserCommunityCreate } from "./resources/userCommunity/create";
+import { ItemCreate } from "./resources/item/create";
+
 import { BrowserRouter } from "react-router-dom";
 import { CustomLayout } from "./components/Layout";
 
 import PeopleIcon from "@mui/icons-material/People";
 import CategoryIcon from "@mui/icons-material/Category";
 import InventoryIcon from "@mui/icons-material/Inventory";
+
+import { BorrowRequestCreate } from "./resources/borrowrequest/create";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { CommunityShow } from "./resources/community/show";
 import { ItemCreate } from "./resources/item/create";
@@ -80,6 +84,7 @@ class App extends Component {
             name="borrowrequests"
             list={BorrowRequestList}
             edit={EditGuesser}
+            create={BorrowRequestCreate}
           />
           <Resource
             name="itemtypes"
@@ -91,7 +96,7 @@ class App extends Component {
             name="items"
             list={ItemList}
             edit={EditGuesser}
-            create={ItemCreate}
+            icon={InventoryIcon}
           />
           <Resource
             name="lendconfirmations"

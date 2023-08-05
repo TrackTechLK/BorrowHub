@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   Create,
   SimpleForm,
@@ -10,13 +10,13 @@ import {
   BooleanInput,
   Toolbar,
   SaveButton,
-} from "react-admin";
-import ItemTypeReferenceInput from "../itemType/referenceInput";
+} from 'react-admin';
+import ItemTypeReferenceInput from '../itemType/referenceInput';
 
 const validateForm = (values) => {
   const errors = {};
   if (!values.item_type) {
-    errors.item_type = ["Item type is required"];
+    errors.item_type = ['Item type is required'];
   }
   return errors;
 };
@@ -31,8 +31,8 @@ export const ItemCreate = () => (
   <Create>
     <SimpleForm toolbar={<MyToolbar />} validate={validateForm}>
       <ItemTypeReferenceInput
-        source="item_type"
-        reference="itemtypes"
+        source='item_type'
+        reference='itemtypes'
         allowEmpty
         validate={required()}
         perPage={10000}
