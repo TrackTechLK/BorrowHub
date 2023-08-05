@@ -32,6 +32,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import CategoryIcon from "@mui/icons-material/Category";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import GroupsIcon from "@mui/icons-material/Groups";
+import { CommunityShow } from "./resources/community/show";
 import { ItemCreate } from "./resources/item/create";
 
 const httpClient = (url, options = {}) => {
@@ -109,6 +110,7 @@ class App extends Component {
             list={CommunityList}
             edit={EditGuesser}
             create={CommunityCreate}
+            show={CommunityShow}
             icon={GroupsIcon}
           />
 

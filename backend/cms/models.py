@@ -28,6 +28,8 @@ class ItemType(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False)
 
+    # TODO may be add unique together for name and category
+
 
 class Item(models.Model):
     id = models.AutoField(primary_key=True)
@@ -38,6 +40,9 @@ class Item(models.Model):
     current_user = models.ForeignKey(
         User, related_name="current_user", on_delete=models.CASCADE, null=True
     )
+
+    class Meta:
+        unique_together = ("item_type", "owner")
 
 
 class Borrow(models.Model):
@@ -68,8 +73,8 @@ class ReturnConfirmation(models.Model):
     borrow = models.ForeignKey(Borrow, on_delete=models.CASCADE, null=False)
     returned = models.BooleanField(null=False)
     received = models.BooleanField(null=False)
-    lent_date = models.DateField()
-    received_date = models.DateField()
+    returned_date = models.DateTimeField(auto_now=True)
+    received_date = models.DateTimeField(null=True, blank=True)
 
 
 class Community(models.Model):
@@ -86,15 +91,26 @@ class Community(models.Model):
         User, through="UserCommunity", related_name="communities"
     )
 
+    # TODO may be add unique together for name and creator
+
 
 class UserCommunity(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_communities"
+    )
+    community = models.ForeignKey(
+        Community, on_delete=models.CASCADE, related_name="user_communities"
+    )
     is_admin = models.BooleanField()
+
+    class Meta:
+        unique_together = ("user", "community")
 
 
 class CommunityRequest(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
+
+    # TODO maybe add unique together to user and community

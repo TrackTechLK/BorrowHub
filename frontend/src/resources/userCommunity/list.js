@@ -10,7 +10,7 @@ import {
 
 export const UserCommunityList = () => (
     <List>
-      <Datagrid>
+      <Datagrid rowClick={'edit'}>
         <TextField source="id" />
         <ReferenceField source="user" reference="users"/>
         <ReferenceField source="community" reference="communities" />

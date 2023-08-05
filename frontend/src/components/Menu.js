@@ -1,4 +1,4 @@
-import { Menu } from "react-admin";
+import { Count, Menu } from "react-admin";
 import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
@@ -25,6 +25,9 @@ export const CustomMenu = () => (
     <AwesomeDivider title={"Users"} />
     <Menu.ResourceItem name="users" />
     <AwesomeDivider title={"Items"} />
+    <Menu.ResourceItem name="borrows">
+      <Count filter={{}} />
+    </Menu.ResourceItem>
     <Menu.ResourceItem name="categories" />
     <Menu.ResourceItem name="items" />
     <AwesomeDivider title={"Social"} />
