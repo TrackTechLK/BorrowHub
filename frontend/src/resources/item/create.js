@@ -11,9 +11,17 @@ import {
 } from "react-admin";
 import ItemTypeReferenceInput from "../itemType/referenceInput";
 
+const validateForm = (values) => {
+  const errors = {};
+  if (!values.item_type) {
+    errors.item_type = ["Item type is required"];
+  }
+  return errors;
+};
+
 export const ItemCreate = () => (
   <Create>
-    <SimpleForm>
+    <SimpleForm validate={validateForm}>
       <ItemTypeReferenceInput
         source="item_type"
         reference="itemtypes"
