@@ -30,6 +30,7 @@ export const CustomMenu = () => (
     </Menu.ResourceItem>
     <Menu.ResourceItem name="categories" />
     <Menu.ResourceItem name="items" />
+    <Menu.ResourceItem name="itemtypes" />
     <AwesomeDivider title={"Social"} />
     <Menu.ResourceItem name="communities" />
     <AwesomeDivider title={"Others"} />
