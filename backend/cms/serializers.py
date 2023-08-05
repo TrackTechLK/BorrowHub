@@ -18,39 +18,54 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+
+    parent_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
         fields = "__all__"
+
+    def get_parent_name(self, obj):
+        if(obj.parent):
+            return obj.parent.name
+        else:
+            return None
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = "__all__"
 
+
 class ItemUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemUser
         fields = "__all__"
+
 
 class BorrowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Borrow
         fields = "__all__"
 
+
 class BorrowRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = BorrowRequest
         fields = "__all__"
+
 
 class LendConfirmationSerializer(serializers.ModelSerializer):
     class Meta:
         model = LendConfirmation
         fields = "__all__"
 
+
 class ReturnConfirmationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReturnConfirmation
         fields = "__all__"
+
 
 class CommunitySerializer(serializers.ModelSerializer):
 
@@ -60,17 +75,19 @@ class CommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Community
         fields = "__all__"
-    
+
     def get_creator_username(self, obj):
         return obj.creator.username
-    
+
     def get_category_name(self, obj):
         return obj.category.name
+
 
 class CommunityRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommunityRequest
         fields = "__all__"
+
 
 class UserCommunitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -78,6 +95,8 @@ class UserCommunitySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 # Used to register a user
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,
