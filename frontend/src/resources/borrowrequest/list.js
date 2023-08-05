@@ -5,16 +5,15 @@ import {
   DateField,
   BooleanField,
   ReferenceField,
-} from 'react-admin';
+} from "react-admin";
 
 export const BorrowRequestList = () => (
   <List>
     <Datagrid>
-      <TextField source='id' />
-      <TextField source='item_id' />
-      <TextField source='description' />
-      <DateField source='accepted' />
-      <ReferenceField source='parent' reference='borrowrequests' />
+      <TextField source="id" />
+      <TextField source="item" />
+      <TextField source="description" />
+      <BooleanField source="accepted" />
     </Datagrid>
   </List>
 );
