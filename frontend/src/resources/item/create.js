@@ -8,6 +8,8 @@ import {
   ReferenceInput,
   AutocompleteInput,
   BooleanInput,
+  Toolbar,
+  SaveButton,
 } from "react-admin";
 import ItemTypeReferenceInput from "../itemType/referenceInput";
 
@@ -19,9 +21,15 @@ const validateForm = (values) => {
   return errors;
 };
 
+const MyToolbar = () => (
+  <Toolbar>
+    <SaveButton alwaysEnable />
+  </Toolbar>
+);
+
 export const ItemCreate = () => (
   <Create>
-    <SimpleForm validate={validateForm}>
+    <SimpleForm toolbar={<MyToolbar />} validate={validateForm}>
       <ItemTypeReferenceInput
         source="item_type"
         reference="itemtypes"
