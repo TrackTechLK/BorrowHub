@@ -5,15 +5,17 @@ import {
   DateField,
   BooleanField,
   ReferenceField,
-} from 'react-admin';
+} from "react-admin";
 
 export const ItemList = () => (
   <List>
     <Datagrid>
-      <TextField source='id' />
-      <TextField source='name' />
-      <TextField source='category' />
-      <ReferenceField source='parent' reference='items' />
+      <TextField source="id" />
+      <ReferenceField source="item_type" reference="itemtypes">
+        <TextField source="name" />
+      </ReferenceField>
+      <TextField source="owner" />
+      <TextField source="current_user" />
     </Datagrid>
   </List>
 );

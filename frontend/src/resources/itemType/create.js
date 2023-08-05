@@ -10,13 +10,11 @@ import {
   BooleanInput,
 } from "react-admin";
 
-export const CategoryCreate = () => (
+export const ItemTypeCreate = () => (
   <Create>
     <SimpleForm>
-      <TextInput source="name" />
-      <ReferenceInput source="parent" reference="categories">
-        <AutocompleteInput optionText="name" />
-      </ReferenceInput>
+      <TextInput source="name" validate={required()} />
+      <TextInput source="category" validate={required()} />
     </SimpleForm>
   </Create>
 );
