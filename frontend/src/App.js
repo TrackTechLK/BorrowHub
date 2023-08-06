@@ -13,7 +13,7 @@ import { BorrowRequestList } from './resources/borrowrequest/list';
 import { LentConfirmationList } from './resources/lendconfirmation/list';
 import { ReturnConfirmationList } from './resources/returnconfirmation/list';
 import { ItemList } from './resources/item/list';
-import drfProvider from 'ra-data-django-rest-framework';
+// import drfProvider from 'ra-data-django-rest-framework';
 import { authProvider } from './utils/authProvider';
 import theme from './theme';
 import LoginPage from './components/login';
@@ -51,7 +51,8 @@ const httpClient = (url, options = {}) => {
   return fetchUtils.fetchJson(url, options);
 };
 
-const dataProvider = drfProvider('http://localhost:8000', httpClient);
+// const dataProvider = drfProvider('http://localhost:8000', httpClient);
+const dataProvider = () => {};
 
 class App extends Component {
   render() {
