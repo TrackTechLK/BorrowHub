@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { ReferenceInput, AutocompleteInput, required } from "react-admin";
 import ItemTypeQuickCreateButton from "./quickCreate";
+import { Stack } from "@mui/material";
 
 const ItemTypeReferenceInput = (props) => {
   const [version, setVersion] = useState(0);
@@ -8,13 +9,13 @@ const ItemTypeReferenceInput = (props) => {
   const { validate } = props;
 
   return (
-    <div>
+    <Stack direction={'row'}>
       <ReferenceInput key={version} {...props}>
         <AutocompleteInput optionText="name" validate={validate} />
       </ReferenceInput>
 
       <ItemTypeQuickCreateButton onChange={handleChange} />
-    </div>
+    </Stack>
   );
 };
 

@@ -10,14 +10,19 @@ import {
   BooleanInput,
 } from "react-admin";
 import { ItemCreate } from "../item/create";
+import ItemTypeReferenceInput from "../itemType/referenceInput";
 
 export const BorrowRequestCreate = () => (
   <Create>
     <SimpleForm>
       <TextInput source="name" />
-      <ReferenceInput source="item_type" reference="itemtypes">
-        <AutocompleteInput optionText="name" />
-      </ReferenceInput>
+      <ItemTypeReferenceInput
+        source='item_type'
+        reference='itemtypes'
+        allowEmpty
+        validate={required()}
+        perPage={10000}
+      />
       <TextInput source="description" />
     </SimpleForm>
   </Create>

@@ -38,7 +38,7 @@ export const BorrowRequestList = () => (
   <List>
     <Datagrid>
       <TextField source="id" />
-      <TextField source="item" />
+      <TextField source="item_type" />
       <TextField source="description" />
       <BooleanField source="accepted" />
       <WithRecord label="Name" render={AcceptButton} />
