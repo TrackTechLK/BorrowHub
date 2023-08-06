@@ -5,11 +5,12 @@ import {
   DateField,
   BooleanField,
   ReferenceField,
+  ShowButton,
 } from "react-admin";
 import EfficientReferenceField from "../../components/EfficientReferenceField";
 
 export const CommunityList = () => (
-  <List >
+  <List>
     <Datagrid rowClick="show">
       <TextField source="id" />
       <TextField source="name" />
@@ -28,6 +29,7 @@ export const CommunityList = () => (
         sourceField={"category_name"}
         idField={"category"}
       />
+      <ShowButton />
     </Datagrid>
   </List>
 );

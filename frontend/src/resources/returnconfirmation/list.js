@@ -8,7 +8,8 @@ import {
   useCreate,
   useUpdate,
   useDelete,
-  FunctionField,
+  
+  WithRecord,
 } from "react-admin";
 import Button from "@mui/material/Button";
 
@@ -70,8 +71,8 @@ export const ReturnConfirmationList = () => {
         <BooleanField source="received" />
         <DateField source="lent_date" />
         <DateField source="received_date" />
-        <FunctionField label="Name" render={ConfirmButton} />
-        <FunctionField label="Name" render={DeclineButton} />
+        <WithRecord label="Name" render={ConfirmButton} />
+        <WithRecord label="Name" render={DeclineButton} />
       </Datagrid>
     </List>
   );

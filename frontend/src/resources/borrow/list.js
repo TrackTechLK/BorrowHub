@@ -5,9 +5,10 @@ import {
   DateField,
   BooleanField,
   ReferenceField,
-  FunctionField,
+  
   useUpdate,
   useCreate,
+  WithRecord,
 } from "react-admin";
 import Button from "@mui/material/Button";
 
@@ -36,7 +37,7 @@ export const BorrowList = () => (
       <TextField source="item_user_id" />
       <TextField source="borrower" />
       <DateField source="borrow_date" />
-      <FunctionField label="Name" render={ReturnButton} />
+      <WithRecord label="Name" render={ReturnButton} />
     </Datagrid>
   </List>
 );

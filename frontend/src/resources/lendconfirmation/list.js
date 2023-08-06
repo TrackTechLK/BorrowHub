@@ -5,9 +5,10 @@ import {
   DateField,
   BooleanField,
   ReferenceField,
-  FunctionField,
+  
   useCreate,
   useUpdate,
+  WithRecord,
 } from "react-admin";
 import Button from "@mui/material/Button";
 import { toDateString } from "../../utils/datetime";
@@ -49,7 +50,7 @@ export const LentConfirmationList = () => (
       <TextField source="received" />
       <DateField source="lent_date" />
       <DateField source="received_date" />
-      <FunctionField label="Name" render={AcceptButton} />
+      <WithRecord label="Name" render={AcceptButton} />
     </Datagrid>
   </List>
 );

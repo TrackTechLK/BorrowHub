@@ -6,7 +6,8 @@ import {
     BooleanField,
     ReferenceField,
     useCreate,
-    FunctionField
+    
+    WithRecord
   } from "react-admin";
   import Button from "@mui/material/Button";
 
@@ -56,8 +57,8 @@ export const CommunityRequestList = () => (
         <TextField source="id" />
         <ReferenceField source="user" reference="users"/>
         <ReferenceField source="community" reference="communities" />
-        <FunctionField label="Name" render={AcceptButton} />
-        <FunctionField label="Name" render={DeclineButton} />
+        <WithRecord label="Name" render={AcceptButton} />
+        <WithRecord label="Name" render={DeclineButton} />
       </Datagrid>
     </List>
   );
