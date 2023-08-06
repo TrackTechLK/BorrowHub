@@ -36,6 +36,8 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { CommunityShow } from "./resources/community/show";
 import { BorrowRequestCreate } from "./resources/borrowrequest/create";
+import CustomNotification from "./components/Notifications";
+
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -51,8 +53,6 @@ const httpClient = (url, options = {}) => {
 
 const dataProvider = drfProvider('http://localhost:8000', httpClient);
 
-// import { PostList } from './posts'
-
 class App extends Component {
   render() {
     return (
@@ -63,6 +63,7 @@ class App extends Component {
           authProvider={authProvider}
           theme={theme}
           layout={CustomLayout}
+          notification={CustomNotification}
         >
           <Resource
             name='users'

@@ -2,6 +2,9 @@ import { defaultTheme } from "react-admin";
 
 const theme = {
   ...defaultTheme,
+  // palette: {
+  //   mode: 'dark',
+  // },
   components: {
     ...defaultTheme.components,
     RaDatagrid: {
