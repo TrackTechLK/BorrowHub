@@ -95,15 +95,28 @@ class BorrowRequestViewSet(viewsets.ModelViewSet):
     serializer_class = BorrowRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def create(self, request, *args, **kwargs):
+        request.data["borrower"] = request.user.id
+        return super().create(request, *args, **kwargs)
+
 
 class LendConfirmationViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-
     queryset = LendConfirmation.objects.all()
     serializer_class = LendConfirmationSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        request.data["lender"] = request.user.id
+
+        # A user accepts a borrow request means that he has that item. therefore we add it to his inventory 
+        borrow_request = BorrowRequest.objects.get(pk=request.data["borrow_request"])
+        Item.objects.get_or_create(
+            item_type=borrow_request.item_type, owner=request.user)
+
+        return super().create(request, *args, **kwargs)
 
 
 class ReturnConfirmationViewSet(viewsets.ModelViewSet):
@@ -152,7 +165,8 @@ class GoogleView(APIView):
             user = User()
             user.username = user_info["email"]
             # provider random default password
-            user.password = make_password(BaseUserManager().make_random_password())
+            user.password = make_password(
+                BaseUserManager().make_random_password())
             user.email = user_info["email"]
             user.save()
 

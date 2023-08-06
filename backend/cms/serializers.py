@@ -56,15 +56,30 @@ class BorrowRequestSerializer(serializers.ModelSerializer):
 
 
 class LendConfirmationSerializer(serializers.ModelSerializer):
+
+    item = serializers.SerializerMethodField()
+    borrower = serializers.SerializerMethodField()
+
     class Meta:
         model = LendConfirmation
         fields = "__all__"
 
+    def get_item(self, obj):
+        return Item.objects.filter(owner=obj.lender, item_type=obj.borrow_request.item_type).first().id
+    
+    def get_borrower(self,obj):
+        return obj.borrow_request.borrower.id
+
 
 class ReturnConfirmationSerializer(serializers.ModelSerializer):
+
+    item = serializers.SerializerMethodField()
     class Meta:
         model = ReturnConfirmation
         fields = "__all__"
+
+    def get_item(self,obj):
+        return obj.borrow.item.id
 
 
 class CommunitySerializer(serializers.ModelSerializer):

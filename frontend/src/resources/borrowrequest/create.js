@@ -15,7 +15,7 @@ export const BorrowRequestCreate = () => (
   <Create>
     <SimpleForm>
       <TextInput source="name" />
-      <ReferenceInput source="item" reference="items">
+      <ReferenceInput source="item_type" reference="itemtypes">
         <AutocompleteInput optionText="name" />
       </ReferenceInput>
       <TextInput source="description" />

@@ -94,6 +94,7 @@ class App extends Component {
             name='items'
             list={ItemList}
             edit={EditGuesser}
+            create={ItemCreate}
             icon={InventoryIcon}
           />
           <Resource

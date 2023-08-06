@@ -49,12 +49,13 @@ class Borrow(models.Model):
     id = models.AutoField(primary_key=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False)
     borrower = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    borrow_date = models.DateField(null=False)
+    borrow_date = models.DateField(_("Date"), auto_now_add=True)
 
 
 class BorrowRequest(models.Model):
     id = models.AutoField(primary_key=True)
     item_type = models.ForeignKey(ItemType, on_delete=models.CASCADE, null=False)
+    borrower = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name='borrow_requests')
     description = models.CharField(max_length=500)
     accepted = models.BooleanField(default=False)
 
@@ -63,10 +64,11 @@ class LendConfirmation(models.Model):
     borrow_request = models.ForeignKey(
         BorrowRequest, on_delete=models.CASCADE, null=False
     )
+    lender = models.ForeignKey(User, related_name="lend_confirmations", on_delete=models.PROTECT)
     lent = models.BooleanField(null=False)
     received = models.BooleanField(null=False)
-    lent_date = models.DateField()
-    received_date = models.DateField()
+    lent_date = models.DateField(_("Date"), auto_now_add=True)
+    received_date = models.DateField(null=True, blank=True)
 
 
 class ReturnConfirmation(models.Model):

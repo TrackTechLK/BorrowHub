@@ -24,6 +24,11 @@ const ConfirmButton = (record) => {
       data: { received: true, received_date: new Date() },
       previousData: record,
     });
+    update("items", {
+      id: record.item,
+      data: { current_user: null },
+      previousData: record,
+    });
   };
 
   return (
