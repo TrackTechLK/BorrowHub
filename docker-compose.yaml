@@ -12,6 +12,10 @@ services:
     expose:
       - 80
       - 443
+    # environment: TODO decide if we add env variables here
+    env_file:
+      - ./frontend/.env
+
 
   # certbot:
   #   image: certbot/certbot
