@@ -4,6 +4,9 @@ services:
     restart: always
     expose:
       - 8000
+    # environment: TODO decide if we add env variables here
+    env_file:
+      - ./backend/.env
 
   frontend:
     build:
