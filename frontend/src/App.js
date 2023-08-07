@@ -14,6 +14,8 @@ import { LentConfirmationList } from './resources/lendconfirmation/list';
 import { ReturnConfirmationList } from './resources/returnconfirmation/list';
 import { ItemList } from './resources/item/list';
 // import drfProvider from 'ra-data-django-rest-framework';
+import drfProvider from './utils/dataprovider';
+import { backendURL } from "./const";
 import { authProvider } from './utils/authProvider';
 import theme from './theme';
 import LoginPage from './components/login';
@@ -39,20 +41,8 @@ import { BorrowRequestCreate } from "./resources/borrowrequest/create";
 import CustomNotification from "./components/Notifications";
 
 
-const httpClient = (url, options = {}) => {
-  if (!options.headers) {
-    options.headers = new Headers({ Accept: 'application/json' });
-  }
-  const auth = localStorage.getItem('auth');
-  if (auth) {
-    const { access } = JSON.parse(auth);
-    options.headers.set('Authorization', `Bearer ${access}`);
-  }
-  return fetchUtils.fetchJson(url, options);
-};
 
-// const dataProvider = drfProvider('http://localhost:8000', httpClient);
-const dataProvider = () => {};
+const dataProvider = drfProvider(backendURL);
 
 class App extends Component {
   render() {
