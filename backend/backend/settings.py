@@ -161,6 +161,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000'
+# ]
+# TODO get allowed origins from env
+CORS_ALLOW_ALL_ORIGINS = True
