@@ -8,6 +8,7 @@ import {
   ShowButton,
   WithListContext,
   useListContext,
+  RichTextField
 } from "react-admin";
 import EfficientReferenceField from "../../components/EfficientReferenceField";
 import Stack from "@mui/material/Stack";
@@ -74,6 +75,7 @@ export const CommunityList = () => (
         sourceField={"category_name"}
         idField={"category"}
       />
+      <RichTextField source="description" />
       <ShowButton />
     </Datagrid> */}
   </List>

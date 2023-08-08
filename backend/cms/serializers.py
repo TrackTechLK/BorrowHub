@@ -105,7 +105,10 @@ class CommunitySerializer(serializers.ModelSerializer):
         return obj.creator.username
 
     def get_category_name(self, obj):
-        return obj.category.name
+        if(obj.category):
+            return obj.category.name
+        else:
+            return None
 
 
 class CommunityRequestSerializer(serializers.ModelSerializer):

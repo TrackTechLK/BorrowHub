@@ -2,6 +2,7 @@ import {
   List,
   Datagrid,
   TextField,
+  UrlField,
   DateField,
   BooleanField,
   ReferenceField,
@@ -20,6 +21,7 @@ export const CategoryList = () => (
         sourceField={"parent_name"}
         label="Parent"
       />
+      <UrlField source="image_url" />
     </Datagrid>
   </List>
 );

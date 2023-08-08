@@ -7,7 +7,7 @@ import {
   required,
   ReferenceInput,
   AutocompleteInput,
-  BooleanInput,
+  BooleanInput, 
 } from "react-admin";
 
 export const CategoryCreate = () => (
@@ -17,6 +17,7 @@ export const CategoryCreate = () => (
       <ReferenceInput source="parent" reference="categories">
         <AutocompleteInput optionText="name" />
       </ReferenceInput>
+      <TextInput source="image_url" type="url" />
     </SimpleForm>
   </Create>
 );
