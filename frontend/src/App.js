@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   fetchUtils,
   Admin,
@@ -6,32 +6,32 @@ import {
   Resource,
   ListGuesser,
   EditGuesser,
-} from 'react-admin';
-import './App.css';
-import { BorrowList } from './resources/borrow/list';
-import { ItemTypeList } from './resources/itemType/list';
-import { BorrowRequestList } from './resources/borrowrequest/list';
-import { LentConfirmationList } from './resources/lendconfirmation/list';
-import { ReturnConfirmationList } from './resources/returnconfirmation/list';
-import { ItemList } from './resources/item/list';
+} from "react-admin";
+import "./App.css";
+import { BorrowList } from "./resources/borrow/list";
+import { ItemTypeList } from "./resources/itemType/list";
+import { BorrowRequestList } from "./resources/borrowrequest/list";
+import { LentConfirmationList } from "./resources/lendconfirmation/list";
+import { ReturnConfirmationList } from "./resources/returnconfirmation/list";
+import { ItemList } from "./resources/item/list";
 // import drfProvider from 'ra-data-django-rest-framework';
-import drfProvider from './utils/dataprovider';
+import drfProvider from "./utils/dataprovider";
 import { backendURL } from "./const";
-import { authProvider } from './utils/authProvider';
-import theme from './theme';
-import LoginPage from './components/login';
-import { CategoryList } from './resources/category/list';
-import { CommunityList } from './resources/community/list';
-import { CommunityRequestList } from './resources/communityRequest/list';
-import { UserCommunityList } from './resources/userCommunity/list';
-import { CategoryCreate } from './resources/category/create';
-import { CommunityCreate } from './resources/community/create';
-import { CommunityRequestCreate } from './resources/communityRequest/create';
-import { UserCommunityCreate } from './resources/userCommunity/create';
-import { ItemCreate } from './resources/item/create';
+import { authProvider } from "./utils/authProvider";
+import theme from "./theme";
+import LoginPage from "./components/login";
+import { CategoryList } from "./resources/category/list";
+import { CommunityList } from "./resources/community/list";
+import { CommunityRequestList } from "./resources/communityRequest/list";
+import { UserCommunityList } from "./resources/userCommunity/list";
+import { CategoryCreate } from "./resources/category/create";
+import { CommunityCreate } from "./resources/community/create";
+import { CommunityRequestCreate } from "./resources/communityRequest/create";
+import { UserCommunityCreate } from "./resources/userCommunity/create";
+import { ItemCreate } from "./resources/item/create";
 
-import { BrowserRouter } from 'react-router-dom';
-import { CustomLayout } from './components/Layout';
+import { BrowserRouter } from "react-router-dom";
+import { CustomLayout } from "./components/Layout";
 
 import PeopleIcon from "@mui/icons-material/People";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -40,8 +40,6 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import { CommunityShow } from "./resources/community/show";
 import { BorrowRequestCreate } from "./resources/borrowrequest/create";
 import CustomNotification from "./components/Notifications";
-
-
 
 const dataProvider = drfProvider(backendURL);
 
@@ -58,52 +56,52 @@ class App extends Component {
           notification={CustomNotification}
         >
           <Resource
-            name='users'
+            name="users"
             list={ListGuesser}
             edit={EditGuesser}
             icon={PeopleIcon}
           />
           <Resource
-            name='categories'
+            name="categories"
             list={CategoryList}
             edit={EditGuesser}
             create={CategoryCreate}
             icon={CategoryIcon}
           />
-          <Resource name='borrows' list={BorrowList} edit={EditGuesser} />
+          <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
           <Resource
-            name='borrowrequests'
+            name="borrowrequests"
             list={BorrowRequestList}
             edit={EditGuesser}
             create={BorrowRequestCreate}
           />
           <Resource
-            name='itemtypes'
+            name="itemtypes"
             list={ItemTypeList}
             edit={EditGuesser}
             icon={InventoryIcon}
           />
           <Resource
-            name='items'
+            name="items"
             list={ItemList}
             edit={EditGuesser}
             create={ItemCreate}
             icon={InventoryIcon}
           />
           <Resource
-            name='lendconfirmations'
+            name="lendconfirmations"
             list={LentConfirmationList}
             edit={EditGuesser}
           />
           <Resource
-            name='returnconfirmations'
+            name="returnconfirmations"
             list={ReturnConfirmationList}
             edit={EditGuesser}
           />
-          <Resource name='borrows' list={BorrowList} edit={EditGuesser} />
+          <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
 
           <Resource
-            name='communities'
+            name="communities"
             list={CommunityList}
             edit={EditGuesser}
             create={CommunityCreate}
@@ -112,19 +110,27 @@ class App extends Component {
           />
 
           <Resource
-            name='community_requests'
+            name="community_requests"
             list={CommunityRequestList}
             edit={EditGuesser}
             create={CommunityRequestCreate}
           />
 
           <Resource
-            name='user_communities'
+            name="user_communities"
             list={UserCommunityList}
             edit={EditGuesser}
             create={UserCommunityCreate}
           />
-          <Resource name='register' noLayout disableAuthentication />
+          <Resource
+            name="my_communities"
+            list={CommunityList}
+            edit={EditGuesser}
+            create={CommunityCreate}
+            show={CommunityShow}
+            icon={GroupsIcon}
+          />
+          <Resource name="register" noLayout disableAuthentication />
         </Admin>
       </BrowserRouter>
     );

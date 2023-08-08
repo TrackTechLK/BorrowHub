@@ -14,6 +14,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
 import { WithGlow } from "./WIthGlow";
 import { Fragment } from "react";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 const AwesomeDivider = ({ title }) => {
   return (
@@ -71,7 +72,7 @@ export const CustomMenu = () => {
     [<Menu.ResourceItem name="items" />, true],
     [<Menu.ResourceItem name="itemtypes" />, true],
     [<AwesomeDivider title={"Social"} />, false],
-    [<Menu.ResourceItem name="communities" />, true],
+    [<Menu.ResourceItem name="my_communities" />, true],
     [
       <SubMenu isOpen={true}>
         {data?.map((community) => (
@@ -95,6 +96,15 @@ export const CustomMenu = () => {
         ))}
       </SubMenu>,
       false,
+    ],
+    [
+      <Menu.Item
+        // title={"Join a community"}
+        primaryText={"Join a community"}
+        to={`/communities/`}
+        leftIcon={<GroupAddIcon />}
+      />,
+      true,
     ],
     [<Divider />, false],
     [((<AwesomeDivider title={"Others"} />), false)],

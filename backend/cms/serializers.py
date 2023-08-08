@@ -96,6 +96,7 @@ class ReturnConfirmationSerializer(serializers.ModelSerializer):
 class CommunitySerializer(serializers.ModelSerializer):
     creator_username = serializers.SerializerMethodField()
     category_name = serializers.SerializerMethodField()
+    is_joined = serializers.SerializerMethodField()
 
     class Meta:
         model = Community
@@ -105,10 +106,13 @@ class CommunitySerializer(serializers.ModelSerializer):
         return obj.creator.username
 
     def get_category_name(self, obj):
-        if(obj.category):
+        if (obj.category):
             return obj.category.name
         else:
             return None
+        
+    def get_is_joined(self,obj):
+        return obj.is_joined
 
 
 class CommunityRequestSerializer(serializers.ModelSerializer):

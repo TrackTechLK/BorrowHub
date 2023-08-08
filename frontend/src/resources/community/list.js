@@ -8,7 +8,8 @@ import {
   ShowButton,
   WithListContext,
   useListContext,
-  RichTextField
+  RichTextField,
+  TextInput
 } from "react-admin";
 import EfficientReferenceField from "../../components/EfficientReferenceField";
 import Stack from "@mui/material/Stack";
@@ -53,8 +54,13 @@ const CommunityListView = () => {
   );
 };
 
+const communityFilters = [
+  <TextInput label="Search" source="q" alwaysOn />,
+  // <TextInput label="Title" source="title" defaultValue="Hello, World!" />,
+];
+
 export const CommunityList = () => (
-  <List>
+  <List filters={communityFilters}> 
     <CommunityListView />
 
     {/* <Datagrid rowClick="show">

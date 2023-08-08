@@ -107,21 +107,89 @@ const CommunityShowHeader = () => {
         <span dangerouslySetInnerHTML={{ __html: record.description }} />
       </CardContent>
       <CardActions>
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() => {
-            navigate("/borrowrequests/create", {
-              state: { community: record.id },
-            });
-          }}
-        >
-          New borrow request
-        </Button>
+        {record.is_joined ? (
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => {
+              navigate("/borrowrequests/create", {
+                state: { community: record.id },
+              });
+            }}
+          >
+            New borrow request
+          </Button>
+        ) : (
+          <Button size="small" variant="outlined">
+            Join
+          </Button>
+        )}
         {/* <Button size="small">Learn More</Button> */}
       </CardActions>
       {/* <CardContent> </CardContent> */}
     </Card>
+  );
+};
+
+const CommunityTabs = () => {
+  const {
+    defaultTitle, // the translated title based on the resource, e.g. 'Post #123'
+    error, // error returned by dataProvider when it failed to fetch the record. Useful if you want to adapt the view instead of just showing a notification using the `onError` side effect.
+    isFetching, // boolean that is true while the record is being fetched, and false once the record is fetched
+    isLoading, // boolean that is true until the record is available for the first time
+    record, // record fetched via dataProvider.getOne() based on the id from the location
+    refetch, // callback to refetch the record via dataProvider.getOne()
+    resource, // the resource name, deduced from the location. e.g. 'posts'
+  } = useShowContext();
+  return (
+    <TabbedShowLayout>
+      {record.is_joined ? (
+        <TabbedShowLayout.Tab label="posts">
+          <ReferenceManyField
+            reference="borrowrequests"
+            target="borrow_requests"
+            label={false}
+          >
+            <BorrowRequestListView />
+            {/* <Datagrid>
+                <TextField source="username" />
+                <WithRecord label="Name" render={MakeAdminButton} />
+              </Datagrid> */}
+          </ReferenceManyField>
+          {/* <TextField label="Id" source="id" />
+            <TextField source="name" /> */}
+        </TabbedShowLayout.Tab>
+      ) : null}
+      <TabbedShowLayout.Tab
+        label="users"
+        path={record.is_joined ? "users" : null}
+      >
+        <ReferenceManyField
+          reference="user_communities"
+          target="community"
+          label={false}
+        >
+          <Datagrid>
+            <TextField source="username" />
+            <WithRecord label="Name" render={MakeAdminButton} />
+          </Datagrid>
+        </ReferenceManyField>
+      </TabbedShowLayout.Tab>
+      :
+      <TabbedShowLayout.Tab label="admins" path="admins">
+        <ReferenceManyField
+          reference="user_communities"
+          target="commmunity"
+          label={false}
+          filter={{ is_admin: true }}
+        >
+          <Datagrid>
+            <TextField source="username" />
+            <WithRecord label="Name" render={RemoveAdminButton} />
+          </Datagrid>
+        </ReferenceManyField>
+      </TabbedShowLayout.Tab>
+    </TabbedShowLayout>
   );
 };
 
@@ -141,48 +209,7 @@ export const CommunityShow = () => {
         {/* <SimpleShowLayout>
           <TextField source="creator_username" />
         </SimpleShowLayout> */}
-        <TabbedShowLayout>
-          <TabbedShowLayout.Tab label="posts">
-            <ReferenceManyField
-              reference="borrowrequests"
-              target="borrow_requests"
-              label={false}
-            >
-              <BorrowRequestListView />
-              {/* <Datagrid>
-                <TextField source="username" />
-                <WithRecord label="Name" render={MakeAdminButton} />
-              </Datagrid> */}
-            </ReferenceManyField>
-            {/* <TextField label="Id" source="id" />
-            <TextField source="name" /> */}
-          </TabbedShowLayout.Tab>
-          <TabbedShowLayout.Tab label="users" path="users">
-            <ReferenceManyField
-              reference="user_communities"
-              target="community"
-              label={false}
-            >
-              <Datagrid>
-                <TextField source="username" />
-                <WithRecord label="Name" render={MakeAdminButton} />
-              </Datagrid>
-            </ReferenceManyField>
-          </TabbedShowLayout.Tab>
-          <TabbedShowLayout.Tab label="admins" path="admins">
-            <ReferenceManyField
-              reference="user_communities"
-              target="commmunity"
-              label={false}
-              filter={{ is_admin: true }}
-            >
-              <Datagrid>
-                <TextField source="username" />
-                <WithRecord label="Name" render={RemoveAdminButton} />
-              </Datagrid>
-            </ReferenceManyField>
-          </TabbedShowLayout.Tab>
-        </TabbedShowLayout>
+        <CommunityTabs />
       </Show>
     </div>
   );
