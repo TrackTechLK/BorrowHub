@@ -16,7 +16,7 @@ import Grid from "@mui/material/Grid";
 import { AnimatePresence, motion } from "framer-motion";
 import { WithGlow } from "../../components/WIthGlow";
 
-const BorrowRequestListView = () => {
+export const BorrowRequestListView = () => {
   const { data } = useListContext();
   return (
     <AnimatePresence

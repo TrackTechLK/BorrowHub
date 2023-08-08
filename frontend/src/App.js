@@ -7,6 +7,7 @@ import {
   ListGuesser,
   EditGuesser,
 } from 'react-admin';
+import './App.css';
 import { BorrowList } from './resources/borrow/list';
 import { ItemTypeList } from './resources/itemType/list';
 import { BorrowRequestList } from './resources/borrowrequest/list';

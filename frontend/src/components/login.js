@@ -18,6 +18,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { LoginForm, useLogin } from "react-admin";
 import { Login } from "react-admin";
 import RegisterForm from "./registerForm";
+import { WithGlow } from "./WIthGlow";
+import { motion } from "framer-motion";
 
 function Copyright(props) {
   return (
@@ -96,7 +98,6 @@ export default function LoginPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         {/* <Grid
@@ -115,81 +116,101 @@ export default function LoginPage() {
             backgroundPosition: "center",
           }}
         /> */}
-        <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
-        <div style={{
-          backgroundImage: "url(https://source.unsplash.com/random)",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}>
-        
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={12}
+          component={Paper}
+          elevation={6}
+          square
+        >
           <div
             style={{
-              minHeight: "100vh",
-              placeContent: "center",
-              display: "flex",
+              backgroundImage: "url(https://source.unsplash.com/random)",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: (t) =>
+                t.palette.mode === "light"
+                  ? t.palette.grey[50]
+                  : t.palette.grey[900],
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           >
             <div
               style={{
-                // overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
+                minHeight: "100vh",
                 placeContent: "center",
+                display: "flex",
               }}
             >
-              <Card style={{ padding: 40 }} elevation={5}>
-                <Box sx={{ width: "100%" }}>
-                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                    <Tabs
-                      value={value}
-                      onChange={handleChange}
-                      aria-label="basic tabs example"
-                    >
-                      <Tab label="Login" {...a11yProps(0)} />
-                      <Tab label="Register" {...a11yProps(1)} />
-                    </Tabs>
-                  </Box>
-                  <CustomTabPanel value={value} index={0}>
-                    <Box
+              <div
+                style={{
+                  // overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  placeContent: "center",
+                }}
+              >
+                <WithGlow>
+                  <motion.div layout>
+                    <Card
+                      className="glass"
                       style={{
-                        alignContent: "center",
-                        justifyContent: "center",
+                        padding: 40,
+                        // backgroundColor: "rgba(255,255,255,0.7)",
                       }}
+                      // elevation={5}
                     >
-                      <LoginForm />
-                    </Box>
-                  </CustomTabPanel>
-                  <CustomTabPanel value={value} index={1}>
-                    <Box
-                      style={{
-                        alignContent: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <RegisterForm setValue={setValue} />
-                    </Box>
-                  </CustomTabPanel>
-                </Box>
-                <Button onClick={handleGoogleLogin}>
-                  {loading && (
-                    <CircularProgress
-                      sx={{ marginRight: 1 }}
-                      size={18}
-                      thickness={2}
-                      color="success"
-                    />
-                  )}
-                  Login With Google
-                </Button>
-                {/* <Copyright /> */}
-              </Card>
+                      <Box sx={{ width: "100%" }}>
+                        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                          <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            aria-label="basic tabs example"
+                          >
+                            <Tab label="Login" {...a11yProps(0)} />
+                            <Tab label="Register" {...a11yProps(1)} />
+                          </Tabs>
+                        </Box>
+                        <CustomTabPanel value={value} index={0}>
+                          <Box
+                            style={{
+                              alignContent: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <LoginForm />
+                          </Box>
+                        </CustomTabPanel>
+                        <CustomTabPanel value={value} index={1}>
+                          <Box
+                            style={{
+                              alignContent: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <RegisterForm setValue={setValue} />
+                          </Box>
+                        </CustomTabPanel>
+                      </Box>
+                      <Button onClick={handleGoogleLogin}>
+                        {loading && (
+                          <CircularProgress
+                            sx={{ marginRight: 1 }}
+                            size={18}
+                            thickness={2}
+                            color="success"
+                          />
+                        )}
+                        Login With Google
+                      </Button>
+                      {/* <Copyright /> */}
+                    </Card>
+                  </motion.div>
+                </WithGlow>
+              </div>
             </div>
-          </div>
           </div>
         </Grid>
       </Grid>

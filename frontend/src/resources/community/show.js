@@ -23,6 +23,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { BorrowRequestListView } from "../borrowrequest/list";
 
 const MakeAdminButton = (record) => {
   const [update, { isLoadingUpdate, errorUpdating }] = useUpdate();
@@ -90,7 +91,7 @@ const CommunityShowHeader = () => {
       <CardMedia
         component="img"
         height="140"
-        src="https://source.unsplash.com/random"
+        src={`https://source.unsplash.com/random?sig=${record.id}`}
         title="green iguana"
       />
       <CardContent>
@@ -142,8 +143,19 @@ export const CommunityShow = () => {
         </SimpleShowLayout> */}
         <TabbedShowLayout>
           <TabbedShowLayout.Tab label="posts">
-            <TextField label="Id" source="id" />
-            <TextField source="name" />
+            <ReferenceManyField
+              reference="borrowrequests"
+              target="borrow_requests"
+              label={false}
+            >
+              <BorrowRequestListView />
+              {/* <Datagrid>
+                <TextField source="username" />
+                <WithRecord label="Name" render={MakeAdminButton} />
+              </Datagrid> */}
+            </ReferenceManyField>
+            {/* <TextField label="Id" source="id" />
+            <TextField source="name" /> */}
           </TabbedShowLayout.Tab>
           <TabbedShowLayout.Tab label="users" path="users">
             <ReferenceManyField

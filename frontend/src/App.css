@@ -1,4 +1,3 @@
-
 .TrackTechLK-Link {
   text-decoration: none;
   color: #1976d2;
@@ -7,3 +6,74 @@
   text-decoration: none;
   color: #1976d2;
 }
+
+.MuiPaper-root-MuiAppBar-root-RaAppBar-root {
+  background-color: red;
+}
+
+.MuiAppBar-root {
+  /* background-color: black; */
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  background-color: rgba(232, 244, 248, 0.5) !important;
+  color:black !important;
+}
+
+.glass {
+  background: rgba(172, 204, 214, 0.6) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(12.9px) !important;
+  -webkit-backdrop-filter: blur(12.9px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+
+
+.RaLayout-content {
+  margin: 0;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(232, 244, 248, 0.5) !important;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* .RaShow-root {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(232, 244, 248, 0.5);
+  padding: 15px;
+  border-radius: 10px;
+} */
+
+.RaCreate-card {
+  background-color: transparent !important;
+  /* backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); */
+  box-shadow: none !important;
+}
+
+.MuiCardContent-root {
+  background-color: white !important;
+  border-radius: 10px;
+}
+
+.MuiToolbar-root {
+  background-color: transparent !important;
+}
+
+.RaSidebar-fixed {
+  background-color: transparent !important;
+}
+
+.RaLayout-root {
+  background-color: transparent !important;
+}
+
+/* header {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(232, 244, 248, 0.5);
+  color:black;
+} */
