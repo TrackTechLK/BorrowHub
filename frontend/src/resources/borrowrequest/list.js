@@ -66,7 +66,7 @@ export const BorrowRequestList = () => (
   </List>
 );
 
-const AcceptButton = (record) => {
+const AcceptButton = ({record}) => {
   console.log(record);
 
   const [create, { isLoading, error }] = useCreate();
@@ -88,7 +88,7 @@ const AcceptButton = (record) => {
   );
 };
 
-const DeclineButton = (record) => {
+const DeclineButton = ({record}) => {
   console.log(record);
 
   const [create, { isLoading, error }] = useCreate();
