@@ -1,9 +1,5 @@
 import { UserManager } from "oidc-client";
-
-const issuer = process.env.REACT_APP_OIDC_ISSUER;
-const clientId = process.env.REACT_APP_OIDC_CLIENT_ID;
-const redirectUri = process.env.REACT_APP_OIDC_REDIRECT_URI;
-const backendURL = process.env.REACT_APP_BACKEND_URL;
+import { backendURL, clientId,  issuer, redirectUri } from "../const";
 
 const userManager = new UserManager({
   authority: issuer,
@@ -30,7 +26,7 @@ export const authProvider = {
       return;
     }
 
-    const request = new Request("http://127.0.0.1:8000/api/token/", {
+    const request = new Request(`${backendURL}/token/`, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: new Headers({ "Content-Type": "application/json" }),
@@ -61,7 +57,7 @@ export const authProvider = {
         throw new Error("No refresh token");
       }
 
-      const request = new Request("http://127.0.0.1:8000/api/token/refresh/", {
+      const request = new Request(`${backendURL}/token/refresh/`, {
         method: "POST",
         body: JSON.stringify({ refresh }),
         headers: new Headers({ "Content-Type": "application/json" }),
@@ -98,7 +94,7 @@ export const authProvider = {
     );
 
     // Transform the code to a token via the API
-    const response = await fetch(`${backendURL}/api/google/`, {
+    const response = await fetch(`${backendURL}/google/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code: code, code_verifier }),
