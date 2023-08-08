@@ -1,10 +1,19 @@
-import { Count, Menu } from "react-admin";
+import { Count, Menu, useGetList } from "react-admin";
 import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+} from "@mui/material";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import { motion } from "framer-motion";
 import { WithGlow } from "./WIthGlow";
+import { Fragment } from "react";
 
 const AwesomeDivider = ({ title }) => {
   return (
@@ -21,44 +30,101 @@ const AwesomeDivider = ({ title }) => {
   );
 };
 
-const menuItems = [
-  <Menu.DashboardItem />,
-  <AwesomeDivider title={"Users"} />,
+const SubMenu = ({
+  handleToggle,
+  isOpen,
+  name,
+  icon,
+  children,
+  hidden,
+  title,
+}) => {
+  return (
+    <Fragment>
+      <Collapse hidden={hidden} in={isOpen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding style={{ paddingLeft: 40 }}>
+          {!hidden ? children : null}
+        </List>
+      </Collapse>
+    </Fragment>
+  );
+};
 
-  <Menu.ResourceItem name="users" />,
+export const CustomMenu = () => {
+  const { data, total, isLoading, error } = useGetList("my_communities");
 
-  <AwesomeDivider title={"Items"} />,
-  <Menu.ResourceItem name="borrows">
-    ,
-    <Count filter={{}} />,
-  </Menu.ResourceItem>,
-  <Menu.ResourceItem name="categories" />,
-  <Menu.ResourceItem name="items" />,
-  <Menu.ResourceItem name="itemtypes" />,
-  <AwesomeDivider title={"Social"} />,
-  <Menu.ResourceItem name="communities" />,
-  <AwesomeDivider title={"Others"} />,
-  <Menu.ResourceItem name="borrowrequests" />,
-  <Menu.ResourceItem name="lendconfirmations" />,
-  <Menu.ResourceItem name="returnconfirmations" />,
-  <Menu.ResourceItem name="community_requests" />,
-  <Menu.ResourceItem name="user_communities" />,
-];
+  const menuItems = [
+    [<Menu.DashboardItem />, true],
+    [<AwesomeDivider title={"Users"} />, false],
 
-export const CustomMenu = () => (
-  <Menu>
-    {/* <Menu.Item to="/custom-route" primaryText="Miscellaneous" leftIcon={<LabelIcon />}/> */}
-    {menuItems.map((item) => (
-      <motion.div
-        whileHover={{ scale: 1.1, translateX: 5 }}
-        whileTap={{ scale: 1.1 }}
-        // drag="x"
-        // dragConstraints={{ left: -100, right: 100 }}
-      >
-        <WithGlow>
-          {item}
-          </WithGlow>
-      </motion.div>
-    ))}
-  </Menu>
-);
+    [<Menu.ResourceItem name="users" />, true],
+
+    [<AwesomeDivider title={"Items"} />, false],
+    [
+      <Menu.ResourceItem name="borrows">
+        ,
+        <Count filter={{}} />,
+      </Menu.ResourceItem>,
+      true,
+    ],
+    [<Menu.ResourceItem name="categories" />, true],
+    [<Menu.ResourceItem name="items" />, true],
+    [<Menu.ResourceItem name="itemtypes" />, true],
+    [<AwesomeDivider title={"Social"} />, false],
+    [<Menu.ResourceItem name="communities" />, true],
+    [
+      <SubMenu isOpen={true}>
+        {data?.map((community) => (
+          <motion.div
+            whileHover={{ scale: 1.1, translateX: 5 }}
+            whileTap={{ scale: 1.1 }}
+            // drag="x"
+            // dragConstraints={{ left: -100, right: 100 }}
+          >
+            <WithGlow>
+              <Menu.Item
+                title={community.name}
+                primaryText={community.name}
+                to={`/communities/${community.id}/show`}
+                sx={{
+                  fontSize: "0.9rem",
+                }}
+              />
+            </WithGlow>
+          </motion.div>
+        ))}
+      </SubMenu>,
+      false,
+    ],
+    [<Divider />, false],
+    [((<AwesomeDivider title={"Others"} />), false)],
+    [<Menu.ResourceItem name="borrowrequests" />, true],
+    [<Menu.ResourceItem name="lendconfirmations" />, true],
+    [((<Menu.ResourceItem name="returnconfirmations" />), true)],
+    [((<Menu.ResourceItem name="community_requests" />), true)],
+    [((<Menu.ResourceItem name="user_communities" />), true)],
+  ];
+
+  return (
+    <Menu>
+      {/* <Menu.Item to="/custom-route" primaryText="Miscellaneous" leftIcon={<LabelIcon />}/> */}
+      {menuItems.map((item) => (
+        <div>
+          {item &&
+            (item[1] ? (
+              <motion.div
+                whileHover={{ scale: 1.1, translateX: 5 }}
+                whileTap={{ scale: 1.1 }}
+                // drag="x"
+                // dragConstraints={{ left: -100, right: 100 }}
+              >
+                <WithGlow>{item[0]}</WithGlow>
+              </motion.div>
+            ) : (
+              item[0]
+            ))}
+        </div>
+      ))}
+    </Menu>
+  );
+};

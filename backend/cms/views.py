@@ -194,6 +194,15 @@ class CommunityViewSet(viewsets.ModelViewSet):
         return super().create(request, *args, **kwargs)
 
 
+class MyCommunityViewSet(viewsets.ModelViewSet):
+    queryset = Community.objects.all()
+    serializer_class = CommunitySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Community.objects.filter(users__id__contains=self.request.user.id)
+
+
 class CommunityRequestViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -239,7 +248,7 @@ class UserCommunityViewSet(viewsets.ModelViewSet):
         community_request = CommunityRequest.objects.get(pk=com_req_id)
         community_request.status = "ACCEPTED"
         community_request.save()
-        
+
         return super().create(request, *args, **kwargs)
 
 
