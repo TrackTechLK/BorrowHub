@@ -1,5 +1,5 @@
 import { UserManager } from "oidc-client";
-import { backendURL, clientId,  issuer, redirectUri } from "../const";
+import { backendURL, clientId, issuer, redirectUri } from "../const";
 
 const userManager = new UserManager({
   authority: issuer,
@@ -46,7 +46,6 @@ export const authProvider = {
   },
   checkError: async (error) => {
     const status = error.status;
-    console.log(status);
     if (status === 401 || status === 403) {
       // Token is invalid or expired
       const auth = JSON.parse(localStorage.getItem("auth"));
