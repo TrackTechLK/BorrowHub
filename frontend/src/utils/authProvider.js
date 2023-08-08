@@ -50,7 +50,8 @@ export const authProvider = {
   },
   checkError: async (error) => {
     const status = error.status;
-    if (status === 401) {
+    console.log(status);
+    if (status === 401 || status === 403) {
       // Token is invalid or expired
       const auth = JSON.parse(localStorage.getItem("auth"));
       const refresh = auth.refresh;
