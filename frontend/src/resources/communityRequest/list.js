@@ -87,9 +87,13 @@ const DeclineButton = (record) => {
 export const CommunityRequestList = () => (
   <List>
     <Datagrid>
-      <TextField source="id" />
-      <ReferenceField source="user" reference="users" />
-      <ReferenceField source="community" reference="communities" />
+      {/* <TextField source="id" /> */}
+      <ReferenceField source="user" reference="users">
+        <TextField source="username" />
+      </ReferenceField>
+      <ReferenceField source="community" reference="communities">
+        <TextField source="name" />
+      </ReferenceField>
       <TextField source="status" />
       <WithRecord label="Accept" render={AcceptButton} />
       <WithRecord label="Decline" render={DeclineButton} />

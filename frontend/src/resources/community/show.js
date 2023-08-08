@@ -14,6 +14,8 @@ import {
   useShowContext,
   Loading,
   Error,
+  useCreate,
+  useNotify,
 } from "react-admin";
 import * as React from "react";
 import Card from "@mui/material/Card";
@@ -84,6 +86,26 @@ const CommunityShowHeader = () => {
 
   const navigate = useNavigate();
 
+  const [create] = useCreate();
+  const notify = useNotify();
+
+  const onJoin = () => {
+    create(
+      "community_requests",
+      { data: { community: record.id } },
+      {
+        onSuccess: () => {
+          notify("Requested to join the community");
+        },
+        onError: () => {
+          notify("Error joining the community", {
+            type: "error",
+          });
+        },
+      }
+    );
+  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -120,7 +142,7 @@ const CommunityShowHeader = () => {
             New borrow request
           </Button>
         ) : (
-          <Button size="small" variant="outlined">
+          <Button size="small" variant="outlined" onClick={onJoin}>
             Join
           </Button>
         )}
@@ -141,6 +163,8 @@ const CommunityTabs = () => {
     refetch, // callback to refetch the record via dataProvider.getOne()
     resource, // the resource name, deduced from the location. e.g. 'posts'
   } = useShowContext();
+
+  
   return (
     <TabbedShowLayout>
       {record.is_joined ? (
