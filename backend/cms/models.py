@@ -3,6 +3,7 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from datetime import date
 from django.utils.translation import gettext as _
+from ckeditor.fields import RichTextField
 
 phone_regex = RegexValidator(
     regex=r"^\+?1?\d{9,12}$",
@@ -21,6 +22,7 @@ class Category(models.Model):
         blank=True,
         on_delete=models.CASCADE,
     )
+    image_url = models.URLField(null=True,blank=True)
 
 
 class ItemType(models.Model):
@@ -92,7 +94,7 @@ class Community(models.Model):
     users = models.ManyToManyField(
         User, through="UserCommunity", related_name="communities"
     )
-
+    description = RichTextField(null=True, blank=True)
     # TODO may be add unique together for name and creator
 
 

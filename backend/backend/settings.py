@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'cms',
     "django_filters",
+    'ckeditor'
 ]
 
 MIDDLEWARE = [

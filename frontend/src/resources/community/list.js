@@ -6,6 +6,7 @@ import {
   BooleanField,
   ReferenceField,
   ShowButton,
+  RichTextField
 } from "react-admin";
 import EfficientReferenceField from "../../components/EfficientReferenceField";
 
@@ -29,6 +30,7 @@ export const CommunityList = () => (
         sourceField={"category_name"}
         idField={"category"}
       />
+      <RichTextField source="description" />
       <ShowButton />
     </Datagrid>
   </List>

@@ -1,6 +1,5 @@
 import {
   Datagrid,
-  
   ReferenceManyField,
   RichTextField,
   Show,
@@ -69,6 +68,7 @@ const communityId = useGetRecordId()
         <TabbedShowLayout.Tab label="summary">
           <TextField label="Id" source="id" />
           <TextField source="name" />
+          <RichTextField source="description" />
         </TabbedShowLayout.Tab>
         <TabbedShowLayout.Tab label="users" path="users">
           <ReferenceManyField
