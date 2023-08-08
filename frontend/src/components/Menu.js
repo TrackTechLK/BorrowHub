@@ -111,7 +111,7 @@ export const CustomMenu = () => {
     [((<AwesomeDivider title={"Others"} />), false)],
     [<Menu.ResourceItem name="borrowrequests" />, true],
     [<Menu.ResourceItem name="lendconfirmations" />, true],
-    [((<Menu.ResourceItem name="returnconfirmations" />), true)],
+    [<Menu.ResourceItem name="returnconfirmations" />, true],
     [<Menu.ResourceItem name="community_requests" />, true],
     [((<Menu.ResourceItem name="user_communities" />), true)],
   ];

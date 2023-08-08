@@ -34,7 +34,7 @@ const AcceptButton = (record) => {
   };
 
   return (
-    <Button variant="contained" onClick={onAccept}>
+    <Button variant="contained" onClick={onAccept} disabled={record.received}>
       Accept
     </Button>
   );
