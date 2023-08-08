@@ -234,6 +234,14 @@ class UserCommunityViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filterset_fields = ['is_admin']
 
+    def create(self, request, *args, **kwargs):
+        com_req_id = request.data["community_request_id"]
+        community_request = CommunityRequest.objects.get(pk=com_req_id)
+        community_request.status = "ACCEPTED"
+        community_request.save()
+        
+        return super().create(request, *args, **kwargs)
+
 
 # Used to register a user
 class RegisterView(generics.CreateAPIView):

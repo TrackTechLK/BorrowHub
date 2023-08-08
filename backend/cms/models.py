@@ -26,14 +26,16 @@ class Category(models.Model):
 class ItemType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=False)
 
     # TODO may be add unique together for name and category
 
 
 class Item(models.Model):
     id = models.AutoField(primary_key=True)
-    item_type = models.ForeignKey(ItemType, on_delete=models.CASCADE, null=False)
+    item_type = models.ForeignKey(
+        ItemType, on_delete=models.CASCADE, null=False)
     owner = models.ForeignKey(
         User, related_name="owner", on_delete=models.CASCADE, null=False
     )
@@ -54,8 +56,10 @@ class Borrow(models.Model):
 
 class BorrowRequest(models.Model):
     id = models.AutoField(primary_key=True)
-    item_type = models.ForeignKey(ItemType, on_delete=models.CASCADE, null=False)
-    borrower = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name='borrow_requests')
+    item_type = models.ForeignKey(
+        ItemType, on_delete=models.CASCADE, null=False)
+    borrower = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=False, related_name='borrow_requests')
     description = models.CharField(max_length=500)
     accepted = models.BooleanField(default=False)
 
@@ -64,7 +68,8 @@ class LendConfirmation(models.Model):
     borrow_request = models.ForeignKey(
         BorrowRequest, on_delete=models.CASCADE, null=False
     )
-    lender = models.ForeignKey(User, related_name="lend_confirmations", on_delete=models.PROTECT)
+    lender = models.ForeignKey(
+        User, related_name="lend_confirmations", on_delete=models.PROTECT)
     lent = models.BooleanField(null=False)
     received = models.BooleanField(null=False)
     lent_date = models.DateField(_("Date"), auto_now_add=True)
@@ -114,5 +119,6 @@ class CommunityRequest(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    status = models.CharField(choices=[("PENDING", "PENDING"), ("ACCEPTED","ACCEPTED"), ("DECLINED", "DECLINED")], max_length=50, default="PENDING")
 
     # TODO maybe add unique together to user and community
