@@ -11,7 +11,7 @@ export default function CommunityCard({ record }) {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} raised={true} elevation={10} style={{borderWidth: 1, borderColor: '#000'}}>
+    <Card variant="outlined" >
       <CardActionArea
         onClick={() => {
           navigate(`/communities/${record.id}/show`);

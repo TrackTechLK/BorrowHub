@@ -42,7 +42,7 @@ const CommunityListView = () => {
               // style={props.style}
             >
               <WithGlow>
-                <CommunityCard record={d} />
+                <CommunityCard record={d}/>
               </WithGlow>
             </motion.div>
           </Grid>

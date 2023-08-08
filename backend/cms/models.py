@@ -9,6 +9,13 @@ phone_regex = RegexValidator(
     message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.",
 )
 
+
+class TimeStampMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 # Create your models here.
 
 
@@ -54,7 +61,7 @@ class Borrow(models.Model):
     borrow_date = models.DateField(_("Date"), auto_now_add=True)
 
 
-class BorrowRequest(models.Model):
+class BorrowRequest(TimeStampMixin):
     id = models.AutoField(primary_key=True)
     item_type = models.ForeignKey(
         ItemType, on_delete=models.CASCADE, null=False)
@@ -62,6 +69,8 @@ class BorrowRequest(models.Model):
         User, on_delete=models.CASCADE, null=False, related_name='borrow_requests')
     description = models.CharField(max_length=500)
     accepted = models.BooleanField(default=False)
+    community = models.ForeignKey(
+        'Community', on_delete=models.PROTECT, related_name='borrow_requests')
 
 
 class LendConfirmation(models.Model):
@@ -119,6 +128,7 @@ class CommunityRequest(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
-    status = models.CharField(choices=[("PENDING", "PENDING"), ("ACCEPTED","ACCEPTED"), ("DECLINED", "DECLINED")], max_length=50, default="PENDING")
+    status = models.CharField(choices=[("PENDING", "PENDING"), ("ACCEPTED", "ACCEPTED"), (
+        "DECLINED", "DECLINED")], max_length=50, default="PENDING")
 
     # TODO maybe add unique together to user and community
