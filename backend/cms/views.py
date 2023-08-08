@@ -217,6 +217,7 @@ class MyCommunityViewSet(viewsets.ModelViewSet):
     queryset = Community.objects.all()
     serializer_class = CommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ["name"]
     filterset_fields = ["name"]
 
@@ -236,21 +237,6 @@ class MyCommunityViewSet(viewsets.ModelViewSet):
                 )
             )
         )
-
-
-class CommunityRequestViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-
-    queryset = CommunityRequest.objects.all()
-    serializer_class = CommunityRequestSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def create(self, request, *args, **kwargs):
-        request.data["user"] = request.user.id
-
-        return super().create(request, *args, **kwargs)
 
 
 class CommunityRequestViewSet(viewsets.ModelViewSet):

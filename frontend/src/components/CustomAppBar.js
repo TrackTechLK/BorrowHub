@@ -1,0 +1,22 @@
+import * as React from "react";
+import { AppBar, TitlePortal } from "react-admin";
+import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
+import { WithGlow } from "./WIthGlow";
+
+export const CustomAppBar = () => (
+  <AppBar>
+    <TitlePortal />
+    <Box flex="1" />
+    <WithGlow>
+      <Typography
+        sx={{
+          fontSize: "1.5rem",
+        }}
+      >
+        BorrowHub
+      </Typography>
+    </WithGlow>
+    <Box flex="2" />
+  </AppBar>
+);

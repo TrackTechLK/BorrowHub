@@ -4,6 +4,7 @@ import CustomNotification from "./Notifications";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
+import { CustomAppBar } from "./CustomAppBar";
 
 const CustomChildren = ({ children }) => {
   const location = useLocation();
@@ -12,7 +13,7 @@ const CustomChildren = ({ children }) => {
 
   useEffect(() => {
     // setTimeout(() => {
-      setPrevLoc(location.pathname.split("/").slice(0, 4).toString());
+    setPrevLoc(location.pathname.split("/").slice(0, 4).toString());
     //   setPrevChildren(children);
     // }, 250);
   }, [location]);
@@ -38,5 +39,6 @@ export const CustomLayout = (props) => (
     menu={CustomMenu}
     notification={CustomNotification}
     children={<CustomChildren children={props.children} />}
+    appBar={CustomAppBar}
   />
 );
