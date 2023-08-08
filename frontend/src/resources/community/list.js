@@ -9,7 +9,7 @@ import {
   WithListContext,
   useListContext,
   RichTextField,
-  TextInput
+  TextInput,
 } from "react-admin";
 import EfficientReferenceField from "../../components/EfficientReferenceField";
 import Stack from "@mui/material/Stack";
@@ -19,7 +19,7 @@ import CommunityCard from "../../components/CommunityCard";
 import { AnimatePresence, motion } from "framer-motion";
 import { WithGlow } from "../../components/WIthGlow";
 
-const CommunityListView = () => {
+export const CommunityListView = () => {
   const { data } = useListContext();
   return (
     <AnimatePresence
@@ -44,7 +44,7 @@ const CommunityListView = () => {
               // style={props.style}
             >
               <WithGlow>
-                <CommunityCard record={d}/>
+                <CommunityCard record={d} />
               </WithGlow>
             </motion.div>
           </Grid>
@@ -60,7 +60,7 @@ const communityFilters = [
 ];
 
 export const CommunityList = () => (
-  <List filters={communityFilters}> 
+  <List filters={communityFilters}>
     <CommunityListView />
 
     {/* <Datagrid rowClick="show">
