@@ -5,10 +5,10 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "url", "username", "email", "groups"]
+        fields = ["id", "url", "username", "email", "groups", "communities"]
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,7 +50,6 @@ class BorrowSerializer(serializers.ModelSerializer):
 
 
 class BorrowRequestSerializer(serializers.ModelSerializer):
-
     username = serializers.SerializerMethodField()
 
     class Meta:
@@ -106,12 +105,12 @@ class CommunitySerializer(serializers.ModelSerializer):
         return obj.creator.username
 
     def get_category_name(self, obj):
-        if (obj.category):
+        if obj.category:
             return obj.category.name
         else:
             return None
-        
-    def get_is_joined(self,obj):
+
+    def get_is_joined(self, obj):
         return obj.is_joined
 
 

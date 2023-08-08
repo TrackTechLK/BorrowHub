@@ -3,6 +3,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.hashers import make_password
 from django.db.models import F, Count, Value, Q, Case, When
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.utils import json
@@ -113,8 +114,7 @@ class LendConfirmationViewSet(viewsets.ModelViewSet):
         request.data["lender"] = request.user.id
 
         # A user accepts a borrow request means that he has that item. therefore we add it to his inventory
-        borrow_request = BorrowRequest.objects.get(
-            pk=request.data["borrow_request"])
+        borrow_request = BorrowRequest.objects.get(pk=request.data["borrow_request"])
         Item.objects.get_or_create(
             item_type=borrow_request.item_type, owner=request.user
         )
@@ -168,8 +168,7 @@ class GoogleView(APIView):
             user = User()
             user.username = user_info["email"]
             # provider random default password
-            user.password = make_password(
-                BaseUserManager().make_random_password())
+            user.password = make_password(BaseUserManager().make_random_password())
             user.email = user_info["email"]
             user.save()
 
@@ -191,8 +190,9 @@ class CommunityViewSet(viewsets.ModelViewSet):
     queryset = Community.objects.all()
     serializer_class = CommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['name']
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ["name"]
+    filterset_fields = ["users"]
 
     def create(self, request, *args, **kwargs):
         request.data["creator"] = request.user.id
@@ -202,20 +202,40 @@ class CommunityViewSet(viewsets.ModelViewSet):
         # print(Community.objects.exclude(users__id__contains=self.request.user.id).annotate(
         #     not_joined=Value(True, output_field=models.BooleanField()))
         # return Community.objects.annotate(not_joined=Value(True, output_field=models.BooleanField()))
-        return Community.objects.annotate(temp_num=Count("users", filter=Q(
-            users__id__contains=self.request.user.id))).annotate(is_joined=Case(When(temp_num__gt=0, then=Value(True)), default=Value(False), outputField=models.BooleanField()))
+        return Community.objects.annotate(
+            temp_num=Count("users", filter=Q(users__id__contains=self.request.user.id))
+        ).annotate(
+            is_joined=Case(
+                When(temp_num__gt=0, then=Value(True)),
+                default=Value(False),
+                outputField=models.BooleanField(),
+            )
+        )
 
 
 class MyCommunityViewSet(viewsets.ModelViewSet):
     queryset = Community.objects.all()
     serializer_class = CommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
-    search_fields = ['name']
+    search_fields = ["name"]
     filterset_fields = ["name"]
 
     def get_queryset(self):
-        return Community.objects.filter(users__id__contains=self.request.user.id).annotate(temp_num=Count("users", filter=Q(
-            users__id__contains=self.request.user.id))).annotate(is_joined=Case(When(temp_num__gt=0, then=Value(True)), default=Value(False), outputField=models.BooleanField()))
+        return (
+            Community.objects.filter(users__id__contains=self.request.user.id)
+            .annotate(
+                temp_num=Count(
+                    "users", filter=Q(users__id__contains=self.request.user.id)
+                )
+            )
+            .annotate(
+                is_joined=Case(
+                    When(temp_num__gt=0, then=Value(True)),
+                    default=Value(False),
+                    outputField=models.BooleanField(),
+                )
+            )
+        )
 
 
 class CommunityRequestViewSet(viewsets.ModelViewSet):
@@ -256,7 +276,7 @@ class UserCommunityViewSet(viewsets.ModelViewSet):
     queryset = UserCommunity.objects.all()
     serializer_class = UserCommunitySerializer
     permission_classes = [permissions.IsAuthenticated]
-    filterset_fields = ["is_admin"]
+    filterset_fields = ["community", "is_admin"]
 
     def create(self, request, *args, **kwargs):
         com_req_id = request.data["community_request_id"]

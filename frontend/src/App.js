@@ -40,6 +40,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import { CommunityShow } from "./resources/community/show";
 import { BorrowRequestCreate } from "./resources/borrowrequest/create";
 import CustomNotification from "./components/Notifications";
+import { UserShow } from "./resources/user/show";
 
 const dataProvider = drfProvider(backendURL);
 
@@ -60,6 +61,7 @@ class App extends Component {
             list={ListGuesser}
             edit={EditGuesser}
             icon={PeopleIcon}
+            show={UserShow}
           />
           <Resource
             name="categories"

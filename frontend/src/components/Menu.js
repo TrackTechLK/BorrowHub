@@ -1,4 +1,4 @@
-import { Count, Menu, useGetList } from "react-admin";
+import { Count, Menu, useGetList, useSidebarState } from "react-admin";
 import LabelIcon from "@mui/icons-material/Label";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
@@ -53,6 +53,7 @@ const SubMenu = ({
 
 export const CustomMenu = () => {
   const { data, total, isLoading, error } = useGetList("my_communities");
+  const [open, setOpen] = useSidebarState();
 
   const menuItems = [
     [<Menu.DashboardItem />, true],
@@ -74,7 +75,7 @@ export const CustomMenu = () => {
     [<AwesomeDivider title={"Social"} />, false],
     [<Menu.ResourceItem name="my_communities" />, true],
     [
-      <SubMenu isOpen={true}>
+      <SubMenu isOpen={open}>
         {data?.map((community) => (
           <motion.div
             whileHover={{ scale: 1.1, translateX: 5 }}
