@@ -18,7 +18,7 @@ const CustomChildren = ({ children }) => {
   }, [location]);
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {location.pathname.split("/").slice(0, 4).toString() == prevLoc && (
         <motion.div
           initial={{ opacity: 0.5, scale: 0.99 }}
