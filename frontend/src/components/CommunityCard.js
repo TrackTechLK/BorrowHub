@@ -5,10 +5,30 @@ import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions, Stack } from "@mui/material";
-import { EditButton, ShowButton } from "react-admin";
+import { EditButton, ShowButton, useCreate, useNotify } from "react-admin";
 import { useNavigate } from "react-router-dom";
 
 export default function CommunityCard({ record }) {
+  const [create, { isLoading, error }] = useCreate();
+  const notify = useNotify();
+
+  const onJoin = () => {
+    create(
+      "community_request",
+      { data: { community: record.id } },
+      {
+        onSuccess: () => {
+          notify("Requested to join the community");
+        },
+        onError: () => {
+          notify("Error joining the community", {
+            type: "error",
+          });
+        },
+      }
+    );
+  };
+
   const navigate = useNavigate();
 
   return (
@@ -32,7 +52,11 @@ export default function CommunityCard({ record }) {
           //   </Avatar>
           // }
           action={
-            <Button variant={"outlined"} disabled={record.is_joined}>
+            <Button
+              variant={"outlined"}
+              disabled={record.is_joined}
+              onClick={onJoin}
+            >
               {record.is_joined ? "Joined" : "Join"}
             </Button>
           }
