@@ -95,6 +95,7 @@ class BorrowRequestViewSet(viewsets.ModelViewSet):
     queryset = BorrowRequest.objects.all()
     serializer_class = BorrowRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filterset_fields = ['community']
 
     def create(self, request, *args, **kwargs):
         request.data["borrower"] = request.user.id
@@ -114,7 +115,8 @@ class LendConfirmationViewSet(viewsets.ModelViewSet):
         request.data["lender"] = request.user.id
 
         # A user accepts a borrow request means that he has that item. therefore we add it to his inventory
-        borrow_request = BorrowRequest.objects.get(pk=request.data["borrow_request"])
+        borrow_request = BorrowRequest.objects.get(
+            pk=request.data["borrow_request"])
         Item.objects.get_or_create(
             item_type=borrow_request.item_type, owner=request.user
         )
@@ -168,7 +170,8 @@ class GoogleView(APIView):
             user = User()
             user.username = user_info["email"]
             # provider random default password
-            user.password = make_password(BaseUserManager().make_random_password())
+            user.password = make_password(
+                BaseUserManager().make_random_password())
             user.email = user_info["email"]
             user.save()
 
@@ -203,7 +206,8 @@ class CommunityViewSet(viewsets.ModelViewSet):
         #     not_joined=Value(True, output_field=models.BooleanField()))
         # return Community.objects.annotate(not_joined=Value(True, output_field=models.BooleanField()))
         return Community.objects.annotate(
-            temp_num=Count("users", filter=Q(users__id__contains=self.request.user.id))
+            temp_num=Count("users", filter=Q(
+                users__id__contains=self.request.user.id))
         ).annotate(
             is_joined=Case(
                 When(temp_num__gt=0, then=Value(True)),

@@ -1,12 +1,12 @@
 import * as React from "react";
-import { AppBar, TitlePortal } from "react-admin";
+import { AppBar, Title } from "react-admin";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { WithGlow } from "./WIthGlow";
 
 export const CustomAppBar = () => (
   <AppBar>
-    <TitlePortal />
+    {/* <TitlePortal /> */}
     <Box flex="1" />
     <WithGlow>
       <Typography

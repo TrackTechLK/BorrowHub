@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from datetime import date
 from django.utils.translation import gettext as _
 from ckeditor.fields import RichTextField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 phone_regex = RegexValidator(
     regex=r"^\+?1?\d{9,12}$",
@@ -29,7 +31,7 @@ class Category(models.Model):
         blank=True,
         on_delete=models.CASCADE,
     )
-    image_url = models.URLField(null=True,blank=True)
+    image_url = models.URLField(null=True, blank=True)
 
 
 class ItemType(models.Model):
@@ -110,6 +112,15 @@ class Community(models.Model):
     )
     description = RichTextField(null=True, blank=True)
     # TODO may be add unique together for name and creator
+
+    # method for updating
+
+
+@receiver(post_save, sender=Community, dispatch_uid="update_stock_count")
+def update_stock(sender, instance, **kwargs):
+    print("Community Created")
+    UserCommunity.objects.create(
+        user=instance.creator, community=instance, is_admin=True)
 
 
 class UserCommunity(models.Model):

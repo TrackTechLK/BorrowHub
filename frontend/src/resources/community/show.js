@@ -164,14 +164,13 @@ const CommunityTabs = () => {
     resource, // the resource name, deduced from the location. e.g. 'posts'
   } = useShowContext();
 
-  
   return (
     <TabbedShowLayout>
       {record.is_joined ? (
         <TabbedShowLayout.Tab label="posts">
           <ReferenceManyField
             reference="borrowrequests"
-            target="borrow_requests"
+            target="community"
             label={false}
           >
             <BorrowRequestListView />
@@ -233,48 +232,7 @@ export const CommunityShow = () => {
         {/* <SimpleShowLayout>
           <TextField source="creator_username" />
         </SimpleShowLayout> */}
-        <TabbedShowLayout>
-          <TabbedShowLayout.Tab label="posts">
-            <ReferenceManyField
-              reference="borrowrequests"
-              target="borrow_requests"
-              label={false}
-            >
-              <BorrowRequestListView />
-              {/* <Datagrid>
-                <TextField source="username" />
-                <WithRecord label="Name" render={MakeAdminButton} />
-              </Datagrid> */}
-            </ReferenceManyField>
-            {/* <TextField label="Id" source="id" />
-            <TextField source="name" /> */}
-          </TabbedShowLayout.Tab>
-          <TabbedShowLayout.Tab label="users" path="users">
-            <ReferenceManyField
-              reference="user_communities"
-              target="community"
-              label={false}
-            >
-              <Datagrid>
-                <TextField source="username" />
-                <WithRecord label="Name" render={MakeAdminButton} />
-              </Datagrid>
-            </ReferenceManyField>
-          </TabbedShowLayout.Tab>
-          <TabbedShowLayout.Tab label="admins" path="admins">
-            <ReferenceManyField
-              reference="user_communities"
-              target="community"
-              label={false}
-              filter={{ is_admin: true }}
-            >
-              <Datagrid>
-                <TextField source="username" />
-                <WithRecord label="Name" render={RemoveAdminButton} />
-              </Datagrid>
-            </ReferenceManyField>
-          </TabbedShowLayout.Tab>
-        </TabbedShowLayout>
+        <CommunityTabs />
       </Show>
     </div>
   );

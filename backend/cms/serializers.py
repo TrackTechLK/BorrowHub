@@ -111,7 +111,10 @@ class CommunitySerializer(serializers.ModelSerializer):
             return None
 
     def get_is_joined(self, obj):
-        return obj.is_joined
+        try:
+            return obj.is_joined
+        except:
+            return False
 
 
 class CommunityRequestSerializer(serializers.ModelSerializer):

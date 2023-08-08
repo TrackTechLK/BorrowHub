@@ -42,8 +42,8 @@ export const BorrowRequestListView = () => {
             >
               <BorrowRequestCard
                 record={d}
-                AcceptButton={() => <AcceptButton />}
-                DeclineButton={() => <DeclineButton />}
+                AcceptButton={() => <AcceptButton record={d} />}
+                DeclineButton={() => <DeclineButton record={d} />}
               />
             </motion.div>
           </Grid>
