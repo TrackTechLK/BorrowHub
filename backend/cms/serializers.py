@@ -62,7 +62,6 @@ class BorrowRequestSerializer(serializers.ModelSerializer):
 
 
 class LendConfirmationSerializer(serializers.ModelSerializer):
-
     item = serializers.SerializerMethodField()
     borrower = serializers.SerializerMethodField()
 
@@ -71,14 +70,19 @@ class LendConfirmationSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_item(self, obj):
-        return Item.objects.filter(owner=obj.lender, item_type=obj.borrow_request.item_type).first().id
+        return (
+            Item.objects.filter(
+                owner=obj.lender, item_type=obj.borrow_request.item_type
+            )
+            .first()
+            .id
+        )
 
     def get_borrower(self, obj):
         return obj.borrow_request.borrower.id
 
 
 class ReturnConfirmationSerializer(serializers.ModelSerializer):
-
     item = serializers.SerializerMethodField()
 
     class Meta:
@@ -167,5 +171,4 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         user.set_password(validated_data["password"])
         user.save()
-
         return user

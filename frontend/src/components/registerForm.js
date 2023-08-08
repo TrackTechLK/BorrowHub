@@ -2,9 +2,11 @@ import { useForm, Controller } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Create, Form, useCreate } from "react-admin";
+import { useEffect } from "react";
 
-const RegisterForm = () => {
+const RegisterForm = ({ setValue }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       // username: "test2",
@@ -25,8 +27,16 @@ const RegisterForm = () => {
   const [create, { data, isLoading, error }] = useCreate();
 
   const onSubmit = (data) => {
-    console.log(data);
-    create("register", { data }, { disableAuthentication: true });
+    create(
+      "register",
+      { data },
+      {
+        disableAuthentication: true,
+        onSuccess: () => {
+          setValue(0);
+        },
+      }
+    );
   };
 
   return (
@@ -73,7 +83,7 @@ const RegisterForm = () => {
                 type="password"
                 {...field}
                 size="small"
-                label={field.name}
+                label={"Password"}
               />
             )}
           />
@@ -85,7 +95,7 @@ const RegisterForm = () => {
                 type="password"
                 {...field}
                 size="small"
-                label={field.name}
+                label={"Confirm Password"}
               />
             )}
           />
@@ -93,6 +103,17 @@ const RegisterForm = () => {
         <Button type="submit" variant="contained">
           Sign up
         </Button>
+        {isLoading && (
+          <CircularProgress
+            sx={{ marginRight: 1 }}
+            size={18}
+            thickness={2}
+            color="success"
+          />
+        )}
+        {error && error.status !== 201 && (
+          <p style={{ color: "red" }}>An error occurred: {error.message}</p>
+        )}
       </Stack>
     </form>
   );
