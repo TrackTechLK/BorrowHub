@@ -8,7 +8,6 @@ import {
   useCreate,
   useUpdate,
   useDelete,
-  
   WithRecord,
 } from "react-admin";
 import Button from "@mui/material/Button";
@@ -20,6 +19,10 @@ const ConfirmButton = (record) => {
 
   const onConfirm = () => {
     //TODO change current_user on item create to null
+    update("borrows", {
+      id: record.borrow,
+      data: { state: "RETURNED" },
+    });
     update("return_confirmations", {
       id: record.id,
       data: { received: true, received_date: new Date() },
@@ -28,7 +31,6 @@ const ConfirmButton = (record) => {
     update("items", {
       id: record.item,
       data: { current_user: null },
-      previousData: record,
     });
   };
 
@@ -43,10 +45,15 @@ const DeclineButton = (record) => {
   console.log(record);
 
   const [deleteOne, { data, isLoading }] = useDelete();
+  const [update] = useUpdate();
 
   const onDecline = () => {
     deleteOne("return_confirmations", {
       id: record.id,
+    });
+    update("borrows", {
+      id: record.borrow,
+      data: { state: "BORROWED" },
     });
   };
 

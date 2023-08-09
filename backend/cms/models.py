@@ -63,6 +63,8 @@ class Borrow(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=False)
     borrower = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     borrow_date = models.DateField(_("Date"), auto_now_add=True)
+    state = models.CharField(
+        choices=(('PENDING_RETURN', 'PENDING_RETURN'), ('BORROWED', 'BORROWED'), ("RETURNED", "RETURNED")), max_length=50, default="BORROWED")
 
 
 class BorrowRequest(TimeStampMixin):
