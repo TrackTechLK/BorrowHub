@@ -14,8 +14,12 @@ export const LendList = () => (
       <ReferenceField source="item_type" reference="item_types">
         <TextField source="name" />
       </ReferenceField>
-      <TextField source="owner" />
-      <TextField source="current_user" />
+      <ReferenceField reference="users" source="owner">
+        <TextField source="username" />
+      </ReferenceField>
+      <ReferenceField reference="users" source="current_user">
+        <TextField source="username" />
+      </ReferenceField>
     </Datagrid>
   </List>
 );
