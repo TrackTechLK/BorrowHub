@@ -252,7 +252,7 @@ const CommunityTabs = () => {
       <TabbedShowLayout.Tab label="admins" path="admins">
         <ReferenceManyField
           reference="user_communities"
-          target="commmunity"
+          target="community"
           label={false}
           filter={{ is_admin: true }}
         >
