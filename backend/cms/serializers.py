@@ -105,9 +105,9 @@ class CommunitySerializer(serializers.ModelSerializer):
         return obj.creator.username
 
     def get_category_name(self, obj):
-        if obj.category:
+        try:
             return obj.category.name
-        else:
+        except:
             return None
 
     def get_is_joined(self, obj):
