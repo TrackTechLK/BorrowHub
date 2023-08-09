@@ -81,7 +81,8 @@ export const authProvider = {
   checkError: async (error) => {
     const status = error.status;
 
-    if (status === 401 || 403) {
+    if (status === 401 || status === 403) {
+      console.log({ status });
       // Token is invalid or expired
       const auth = JSON.parse(localStorage.getItem("auth"));
 
@@ -144,7 +145,7 @@ export const authProvider = {
     } else {
       // if (!access) {
       // console.log("no access token");
-      console.log("refreshing access token on checkAuth")
+      console.log("refreshing access token on checkAuth");
       const request = new Request(`${backendURL}/token/refresh/`, {
         method: "POST",
         body: JSON.stringify({ refresh }),
@@ -152,13 +153,12 @@ export const authProvider = {
       });
 
       try {
-        const response = await fetch(request)
+        const response = await fetch(request);
         if (response.status < 200 || response.status >= 300) {
           throw new Error(response.statusText);
         }
         const { access } = await response.json();
         localStorage.setItem("auth", JSON.stringify({ access, refresh }));
-
       } catch (err) {
         console.log(err);
         // localStorage.removeItem('access');
