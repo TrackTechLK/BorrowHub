@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
-from datetime import date
 from django.utils.translation import gettext as _
 from ckeditor.fields import RichTextField
 from django.db.models.signals import post_save

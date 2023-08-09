@@ -1,6 +1,17 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from cms.models import *
+from cms.models import (
+    Category,
+    Item,
+    ItemType,
+    Borrow,
+    BorrowRequest,
+    LendConfirmation,
+    ReturnConfirmation,
+    Community,
+    CommunityRequest,
+    UserCommunity,
+)
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
@@ -115,13 +126,13 @@ class CommunitySerializer(serializers.ModelSerializer):
     def get_category_name(self, obj):
         try:
             return obj.category.name
-        except:
+        except AttributeError:
             return None
 
     def get_is_joined(self, obj):
         try:
             return obj.is_joined
-        except:
+        except AttributeError:
             return False
 
 
