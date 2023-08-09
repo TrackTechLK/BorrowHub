@@ -1,19 +1,20 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group, User
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
+
 from cms.models import (
-    Category,
-    Item,
-    ItemType,
     Borrow,
     BorrowRequest,
-    LendConfirmation,
-    ReturnConfirmation,
+    Category,
     Community,
     CommunityRequest,
+    Item,
+    ItemType,
+    LendConfirmation,
+    ReturnConfirmation,
     UserCommunity,
 )
-from rest_framework.validators import UniqueValidator
-from django.contrib.auth.password_validation import validate_password
 
 
 class UserSerializer(serializers.ModelSerializer):

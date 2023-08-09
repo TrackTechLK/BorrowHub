@@ -1,6 +1,7 @@
-from cms.models import Community, UserCommunity
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from cms.models import Community, UserCommunity
 
 
 @receiver(post_save)

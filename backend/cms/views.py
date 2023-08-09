@@ -1,49 +1,46 @@
-from django.contrib.auth.models import User, Group
-from django.contrib.auth.base_user import BaseUserManager
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth.hashers import make_password
-from django.db.models import Count, Value, Q, Case, When, BooleanField
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, status
-from rest_framework.views import APIView
-from rest_framework.utils import json
-from rest_framework.response import Response
 import base64
+import os
+
 import requests
-from rest_framework import permissions
-from cms.serializers import (
-    UserSerializer,
-    GroupSerializer,
-    CategorySerializer,
-    ItemSerializer,
-    ItemTypeSerializer,
-    BorrowSerializer,
-    BorrowRequestSerializer,
-    LendConfirmationSerializer,
-    ReturnConfirmationSerializer,
-    CommunityRequestSerializer,
-    CommunitySerializer,
-    UserCommunitySerializer,
-    RegisterSerializer,
-)
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import Group, User
+from django.db.models import BooleanField, Case, Count, Q, Value, When
+from django_filters.rest_framework import DjangoFilterBackend
+from dotenv import load_dotenv
+from rest_framework import filters, generics, permissions, status, viewsets
+from rest_framework.response import Response
+from rest_framework.utils import json
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from cms.models import (
-    Category,
-    Item,
-    ItemType,
     Borrow,
     BorrowRequest,
-    LendConfirmation,
-    ReturnConfirmation,
+    Category,
     Community,
     CommunityRequest,
+    Item,
+    ItemType,
+    LendConfirmation,
+    ReturnConfirmation,
     UserCommunity,
 )
-from rest_framework import generics
-from rest_framework import filters
-from datetime import datetime
-
-from dotenv import load_dotenv
-import os
+from cms.serializers import (
+    BorrowRequestSerializer,
+    BorrowSerializer,
+    CategorySerializer,
+    CommunityRequestSerializer,
+    CommunitySerializer,
+    GroupSerializer,
+    ItemSerializer,
+    ItemTypeSerializer,
+    LendConfirmationSerializer,
+    RegisterSerializer,
+    ReturnConfirmationSerializer,
+    UserCommunitySerializer,
+    UserSerializer,
+)
 
 load_dotenv()
 

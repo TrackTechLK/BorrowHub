@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from cms.models import Community
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 

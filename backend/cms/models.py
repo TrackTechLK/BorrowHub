@@ -1,10 +1,10 @@
-from django.db import models
-from django.core.validators import RegexValidator
-from django.contrib.auth.models import User
-from django.utils.translation import gettext as _
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import gettext as _
 
 phone_regex = RegexValidator(
     regex=r"^\+?1?\d{9,12}$",
