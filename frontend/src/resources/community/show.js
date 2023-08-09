@@ -221,7 +221,7 @@ export const CommunityShow = () => {
 
   return (
     <div>
-      <Show>
+      <Show emptyWhileLoading>
         {/* <img
           src="https://source.unsplash.com/random"
           height={100}
