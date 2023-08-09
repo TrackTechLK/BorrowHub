@@ -3,3 +3,11 @@
 [tool.isort]
 profile = "black"
 extend_skip_glob = ["*/venv/*", "*/migrations/*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+extend-exclude = """
+    /venv/
+    | /migrations/
+"""
