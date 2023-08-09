@@ -36,8 +36,6 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = "__all__"
 
-    
-
 
 class ItemTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,6 +51,7 @@ class BorrowSerializer(serializers.ModelSerializer):
 
 class BorrowRequestSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
+    item_type_name = serializers.SerializerMethodField()
 
     class Meta:
         model = BorrowRequest
@@ -60,6 +59,9 @@ class BorrowRequestSerializer(serializers.ModelSerializer):
 
     def get_username(self, obj):
         return obj.borrower.username
+
+    def get_item_type_name(self, obj):
+        return obj.item_type.name
 
 
 class LendConfirmationSerializer(serializers.ModelSerializer):
@@ -80,7 +82,7 @@ class LendConfirmationSerializer(serializers.ModelSerializer):
             .id
         )
 
-    def get_item_name(self,obj):
+    def get_item_name(self, obj):
         return obj.borrow_request.item_type.name
 
     def get_borrower(self, obj):
@@ -187,3 +189,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data["password"])
         user.save()
         return user
+
+
+class EventSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    type = serializers.CharField(max_length=256)
+    time = serializers.DateTimeField()
+    user = serializers.IntegerField()

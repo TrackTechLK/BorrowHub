@@ -7,6 +7,25 @@ const theme = {
   // },
   components: {
     ...defaultTheme.components,
+    MuiCard: {
+      defaultProps: {
+        style: {
+          borderRadius: 10
+        },
+      },
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        variant: 'outlined',
+        style: {
+          borderRadius: 10,
+          margin: 5,
+        },
+        "&:hover": {
+          scale: 1.1,
+        },
+      },
+    },
     RaDatagrid: {
       styleOverrides: {
         root: {

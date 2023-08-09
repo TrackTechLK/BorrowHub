@@ -19,6 +19,7 @@ import {
 } from "react-admin";
 import * as React from "react";
 import Card from "@mui/material/Card";
+import Box from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -26,6 +27,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { BorrowRequestListView } from "../borrowrequest/list";
+import { makeStyles } from "@mui/material/styles";
 
 const MakeAdminButton = (record) => {
   const [update, { isLoadingUpdate, errorUpdating }] = useUpdate();
@@ -106,26 +108,66 @@ const CommunityShowHeader = () => {
     );
   };
 
+  const styles = {
+    media: {
+      height: 0,
+      paddingTop: "56.25%", // 16:9
+    },
+    card: {
+      position: "relative",
+    },
+    overlay: {
+      position: "absolute",
+      bottom: "0px",
+      // left: "20px",
+      color: "black",
+      backgroundColor: "white",
+    },
+  };
+
   if (isLoading) return <Loading />;
+
+  // return (
+  //   <Card style={styles.card}>
+  //     <CardMedia
+  //       image={`https://source.unsplash.com/random?sig=${record.id}`}
+  //       style={styles.media}
+  //     />
+  //     <div style={styles.overlay}>this text should overlay the image</div>
+  //   </Card>
+  // );
 
   return (
     <Card variant={"outlined"}>
-      <CardMedia
-        component="img"
-        height="140"
-        src={`https://source.unsplash.com/random?sig=${record.id}`}
-        title="green iguana"
-      />
+      <div style={styles.card}>
+        <CardMedia
+          component="img"
+          height="400"
+          src={`https://source.unsplash.com/random?sig=${record.id}`}
+          title="green iguana"
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            backgroundColor: "transparent",
+            padding: 20,
+          }}
+          className="glass-wo-radius"
+        >
+          <Typography gutterBottom variant="h5" component="div">
+            {record.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {record.category_name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {`Created by ${record.creator_username} on ${record.created_date}`}
+          </Typography>
+        </div>
+      </div>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {record.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {record.category_name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {`Created by ${record.creator_username} on ${record.created_date}`}
-        </Typography>
         <span dangerouslySetInnerHTML={{ __html: record.description }} />
       </CardContent>
       <CardActions>
