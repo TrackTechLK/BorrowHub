@@ -69,6 +69,7 @@ export const CustomMenu = () => {
       </Menu.ResourceItem>,
       true,
     ],
+    [<Menu.ResourceItem name="lends" />, true],
     [<Menu.ResourceItem name="categories" />, true],
     [<Menu.ResourceItem name="items" />, true],
     [<Menu.ResourceItem name="item_types" />, true],
@@ -108,13 +109,13 @@ export const CustomMenu = () => {
       true,
     ],
     [<Menu.ResourceItem name="community_requests" />, true],
-   
+
     [<AwesomeDivider title={"Actions"} />, false],
     [<Menu.ResourceItem name="borrow_requests" />, true],
     [<Menu.ResourceItem name="lend_confirmations" />, true],
     [<Menu.ResourceItem name="return_confirmations" />, true],
     [((<Menu.ResourceItem name="user_communities" />), true)],
-     [<Divider />, false],
+    [<Divider />, false],
   ];
 
   return (

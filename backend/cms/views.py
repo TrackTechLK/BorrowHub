@@ -300,3 +300,17 @@ class RegisterView(generics.CreateAPIView):
         else:
             # Customize your error response here
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LendsViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ["owner","current_user"]
+    filterset_fields = ["owner","current_user"]
+
+    def get_queryset(self):
+        return (
+            Item.objects.filter(owner=self.request.user.id).filter(current_user__isnull=False)
+            
+        )
