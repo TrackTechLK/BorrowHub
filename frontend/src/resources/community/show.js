@@ -134,7 +134,7 @@ const CommunityShowHeader = () => {
             size="small"
             variant="outlined"
             onClick={() => {
-              navigate("/borrowrequests/create", {
+              navigate("/borrow_requests/create", {
                 state: { community: record.id },
               });
             }}
@@ -169,7 +169,7 @@ const CommunityTabs = () => {
       {record.is_joined ? (
         <TabbedShowLayout.Tab label="posts">
           <ReferenceManyField
-            reference="borrowrequests"
+            reference="borrow_requests"
             target="community"
             label={false}
           >

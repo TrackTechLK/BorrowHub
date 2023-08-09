@@ -76,10 +76,10 @@ const AcceptButton = ({ record }) => {
   const onAccept = () => {
     console.log("update");
     //create returnconfirmation
-    create("lendconfirmations", {
+    create("lend_confirmations", {
       data: { borrow_request: record.id, lent: true, received: false },
     });
-    update("borrowrequests", { id: record.id, data: { accepted: true } });
+    update("borrow_requests", { id: record.id, data: { accepted: true } });
   };
 
   return (
@@ -99,7 +99,7 @@ const DeclineButton = ({ record }) => {
   const onDecline = () => {
     console.log("update");
     // TODO
-    deleteOne("borrowrequests", { id: record.id });
+    deleteOne("borrow_requests", { id: record.id });
   };
 
   return (

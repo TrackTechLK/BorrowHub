@@ -20,7 +20,7 @@ const ReturnButton = (record) => {
   const onReturn = () => {
     console.log("update");
     //create returnconfirmation
-    create('returnconfirmations', {data: {returned: true, received: false, borrow: record.id}})
+    create('return_confirmations', {data: {returned: true, received: false, borrow: record.id}})
   };
 
   return (

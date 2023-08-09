@@ -11,7 +11,7 @@ export const ItemList = () => (
   <List>
     <Datagrid>
       <TextField source="id" />
-      <ReferenceField source="item_type" reference="itemtypes">
+      <ReferenceField source="item_type" reference="item_types">
         <TextField source="name" />
       </ReferenceField>
       <TextField source="owner" />

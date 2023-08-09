@@ -71,7 +71,7 @@ export const CustomMenu = () => {
     ],
     [<Menu.ResourceItem name="categories" />, true],
     [<Menu.ResourceItem name="items" />, true],
-    [<Menu.ResourceItem name="itemtypes" />, true],
+    [<Menu.ResourceItem name="item_types" />, true],
     [<AwesomeDivider title={"Social"} />, false],
     [<Menu.ResourceItem name="my_communities" />, true],
     [
@@ -107,13 +107,14 @@ export const CustomMenu = () => {
       />,
       true,
     ],
-    [<Divider />, false],
-    [((<AwesomeDivider title={"Others"} />), false)],
-    [<Menu.ResourceItem name="borrowrequests" />, true],
-    [<Menu.ResourceItem name="lendconfirmations" />, true],
-    [<Menu.ResourceItem name="returnconfirmations" />, true],
     [<Menu.ResourceItem name="community_requests" />, true],
+   
+    [<AwesomeDivider title={"Actions"} />, false],
+    [<Menu.ResourceItem name="borrow_requests" />, true],
+    [<Menu.ResourceItem name="lend_confirmations" />, true],
+    [<Menu.ResourceItem name="return_confirmations" />, true],
     [((<Menu.ResourceItem name="user_communities" />), true)],
+     [<Divider />, false],
   ];
 
   return (

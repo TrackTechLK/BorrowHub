@@ -21,7 +21,7 @@ import DialogActions from "@mui/material/DialogActions";
 
 function ItemTypeQuickCreateButton({ onChange }) {
   const [showDialog, setShowDialog] = useState(false);
-  const [create, { loading }] = useCreate("itemtypes");
+  const [create, { loading }] = useCreate("item_types");
   const notify = useNotify();
   const { setValue } = useFormContext();
 
@@ -35,7 +35,7 @@ function ItemTypeQuickCreateButton({ onChange }) {
 
   const handleSubmit = async (values) => {
     create(
-      "itemtypes",
+      "item_types",
       { data: values },
       {
         onSuccess: (data) => {
@@ -65,7 +65,7 @@ function ItemTypeQuickCreateButton({ onChange }) {
       >
         <DialogTitle>Create Item Type</DialogTitle>
 
-        <Form resource="itemtypes" onSubmit={handleSubmit}>
+        <Form resource="item_types" onSubmit={handleSubmit}>
           <>
             <DialogContent
               style={{

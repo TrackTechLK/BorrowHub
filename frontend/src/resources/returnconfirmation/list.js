@@ -20,7 +20,7 @@ const ConfirmButton = (record) => {
 
   const onConfirm = () => {
     //TODO change current_user on item create to null
-    update("returnconfirmations", {
+    update("return_confirmations", {
       id: record.id,
       data: { received: true, received_date: new Date() },
       previousData: record,
@@ -45,7 +45,7 @@ const DeclineButton = (record) => {
   const [deleteOne, { data, isLoading }] = useDelete();
 
   const onDecline = () => {
-    deleteOne("returnconfirmations", {
+    deleteOne("return_confirmations", {
       id: record.id,
     });
   };

@@ -32,7 +32,7 @@ export const BorrowRequestCreate = () => {
         </ReferenceInput>
         <ItemTypeReferenceInput
           source="item_type"
-          reference="itemtypes"
+          reference="item_types"
           allowEmpty
           validate={required()}
           perPage={10000}

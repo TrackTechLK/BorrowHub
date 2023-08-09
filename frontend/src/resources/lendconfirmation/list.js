@@ -23,7 +23,7 @@ const AcceptButton = (record) => {
     console.log("update");
     //create returnconfirmation
     create("borrows", { data: {borrower: record.borrower, item: record.item} });
-    update("lendconfirmations", {
+    update("lend_confirmations", {
       id: record.id,
       data: { received: true, received_date: toDateString(new Date()) },
     });

@@ -72,13 +72,13 @@ class App extends Component {
           />
           <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
           <Resource
-            name="borrowrequests"
+            name="borrow_requests"
             list={BorrowRequestList}
             edit={EditGuesser}
             create={BorrowRequestCreate}
           />
           <Resource
-            name="itemtypes"
+            name="item_types"
             list={ItemTypeList}
             edit={EditGuesser}
             icon={InventoryIcon}
@@ -91,12 +91,12 @@ class App extends Component {
             icon={InventoryIcon}
           />
           <Resource
-            name="lendconfirmations"
+            name="lend_confirmations"
             list={LentConfirmationList}
             edit={EditGuesser}
           />
           <Resource
-            name="returnconfirmations"
+            name="return_confirmations"
             list={ReturnConfirmationList}
             edit={EditGuesser}
           />
