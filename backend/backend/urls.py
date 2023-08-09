@@ -37,6 +37,7 @@ router.register(r"communities", views.CommunityViewSet)
 router.register(r"community_requests", views.CommunityRequestViewSet)
 router.register(r"user_communities", views.UserCommunityViewSet)
 router.register(r"my_communities", views.MyCommunityViewSet)
+router.register(r"events", views.EventViewSet, basename='events')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

@@ -60,6 +60,9 @@ export default function BorrowRequestCard({
         alt="Paella dish"
       /> */}
       <CardContent>
+      <Typography variant="body" color="text.primary">
+          {`${record.item_type_name}`}
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           {record.description}
         </Typography>
