@@ -7,6 +7,7 @@ import { WithGlow } from "./WIthGlow";
 export const CustomAppBar = () => (
   <AppBar>
     {/* <TitlePortal /> */}
+    <Typography variant="h6" id="react-admin-title" />
     <Box flex="1" />
     <WithGlow>
       <Typography

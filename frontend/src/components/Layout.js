@@ -40,5 +40,6 @@ export const CustomLayout = (props) => (
     notification={CustomNotification}
     children={<CustomChildren children={props.children} />}
     appBar={CustomAppBar}
+    appBarAlwaysOn
   />
 );
