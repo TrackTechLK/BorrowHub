@@ -75,8 +75,8 @@ export const ReturnConfirmationList = () => {
       <Datagrid>
         <TextField source="borrow" />
         <BooleanField source="returned" />
+        <DateField source="returned_date" />
         <BooleanField source="received" />
-        <DateField source="lent_date" />
         <DateField source="received_date" />
         <WithRecord label="Name" render={ConfirmButton} />
         <WithRecord label="Name" render={DeclineButton} />

@@ -12,7 +12,7 @@ import EfficientReferenceField from "../../components/EfficientReferenceField";
 export const CategoryList = () => (
   <List>
     <Datagrid>
-      <TextField source="id" />
+      {/* <TextField source="id" /> */}
       <TextField source="name" />
       {/* <ReferenceField source="parent" reference="categories" /> */}
       <EfficientReferenceField

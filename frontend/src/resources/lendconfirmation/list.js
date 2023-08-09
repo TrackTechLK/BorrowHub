@@ -5,7 +5,6 @@ import {
   DateField,
   BooleanField,
   ReferenceField,
-  
   useCreate,
   useUpdate,
   WithRecord,
@@ -22,7 +21,9 @@ const AcceptButton = (record) => {
   const onAccept = () => {
     console.log("update");
     //create returnconfirmation
-    create("borrows", { data: {borrower: record.borrower, item: record.item} });
+    create("borrows", {
+      data: { borrower: record.borrower, item: record.item },
+    });
     update("lend_confirmations", {
       id: record.id,
       data: { received: true, received_date: toDateString(new Date()) },
@@ -43,12 +44,18 @@ const AcceptButton = (record) => {
 export const LentConfirmationList = () => (
   <List>
     <Datagrid>
-      <TextField source="borrow_request" />
-      <TextField source="lent" />
-      <TextField source="item" />
-      <TextField source="borrower" />
-      <TextField source="received" />
+      {/* <TextField source="borrow_request" /> */}
+      <ReferenceField source="lender" reference="users">
+        <TextField source="username" />
+      </ReferenceField>
+      <BooleanField source="lent" />
+      <TextField source="item_name" />
+      {/* <ReferenceField source="item" reference="item_types">
+        <TextField source="item_name" />
+      </ReferenceField> */}
       <DateField source="lent_date" />
+      <BooleanField source="received" />
+
       <DateField source="received_date" />
       <WithRecord label="Name" render={AcceptButton} />
     </Datagrid>

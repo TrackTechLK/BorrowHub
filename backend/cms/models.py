@@ -95,7 +95,7 @@ class ReturnConfirmation(models.Model):
     borrow = models.ForeignKey(Borrow, on_delete=models.CASCADE, null=False)
     returned = models.BooleanField(null=False)
     received = models.BooleanField(null=False)
-    returned_date = models.DateTimeField(auto_now=True)
+    returned_date = models.DateTimeField(auto_now_add=True)
     received_date = models.DateTimeField(null=True, blank=True)
 
 

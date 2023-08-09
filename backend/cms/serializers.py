@@ -36,6 +36,8 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = "__all__"
 
+    
+
 
 class ItemTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -63,6 +65,7 @@ class BorrowRequestSerializer(serializers.ModelSerializer):
 class LendConfirmationSerializer(serializers.ModelSerializer):
     item = serializers.SerializerMethodField()
     borrower = serializers.SerializerMethodField()
+    item_name = serializers.SerializerMethodField()
 
     class Meta:
         model = LendConfirmation
@@ -76,6 +79,9 @@ class LendConfirmationSerializer(serializers.ModelSerializer):
             .first()
             .id
         )
+
+    def get_item_name(self,obj):
+        return obj.borrow_request.item_type.name
 
     def get_borrower(self, obj):
         return obj.borrow_request.borrower.id

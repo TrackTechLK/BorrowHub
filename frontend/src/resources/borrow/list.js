@@ -40,9 +40,17 @@ const ReturnButton = (record) => {
 export const BorrowList = () => (
   <List>
     <Datagrid>
-      <TextField source="id" />
-      <TextField source="item_user_id" />
-      <TextField source="borrower" />
+      {/* <TextField source="id" /> */}
+      {/* <TextField source="item_user_id" /> */}
+      <ReferenceField reference='items' source='item'>
+        <ReferenceField reference='item_types' source='item_type'>
+          <TextField source='name' />
+        </ReferenceField>
+      </ReferenceField>
+      {/* <TextField source="borrower" /> */}
+      <ReferenceField reference="users" source='borrower'>
+        <TextField source="username"/>
+      </ReferenceField>
       <TextField source="state" />
       <DateField source="borrow_date" />
       <WithRecord label="Name" render={ReturnButton} />

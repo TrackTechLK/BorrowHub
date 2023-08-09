@@ -10,10 +10,13 @@ import {
 export const ItemTypeList = () => (
   <List>
     <Datagrid>
-      <TextField source="id" />
+      {/* <TextField source="id" /> */}
       <TextField source="name" />
-      <TextField source="category" />
-      <ReferenceField source="parent" reference="items" />
+      {/* <TextField source="category" /> */}
+      <ReferenceField source="category" reference="categories">
+        <TextField source="name" />
+      </ReferenceField>
+      {/* <ReferenceField source="parent" reference="items" /> */}
     </Datagrid>
   </List>
 );

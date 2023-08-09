@@ -10,7 +10,7 @@ import {
 export const ItemList = () => (
   <List>
     <Datagrid>
-      <TextField source="id" />
+      {/* <TextField source="id" /> */}
       <ReferenceField source="item_type" reference="item_types">
         <TextField source="name" />
       </ReferenceField>
