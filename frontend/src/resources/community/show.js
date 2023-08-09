@@ -16,6 +16,7 @@ import {
   Error,
   useCreate,
   useNotify,
+  useDelete,
 } from "react-admin";
 import * as React from "react";
 import Card from "@mui/material/Card";
@@ -89,6 +90,7 @@ const CommunityShowHeader = () => {
   const navigate = useNavigate();
 
   const [create] = useCreate();
+  const [deleteRecord] = useDelete();
   const notify = useNotify();
 
   const onJoin = () => {
@@ -172,17 +174,23 @@ const CommunityShowHeader = () => {
       </CardContent>
       <CardActions>
         {record.is_joined ? (
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={() => {
-              navigate("/borrow_requests/create", {
-                state: { community: record.id },
-              });
-            }}
-          >
-            New borrow request
-          </Button>
+          <span>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                navigate("/borrow_requests/create", {
+                  state: { community: record.id },
+                });
+              }}
+              sx={{ mr: 1, ml: 1 }}
+            >
+              New borrow request
+            </Button>
+            <Button size="small" variant="outlined" color="error">
+              Leave
+            </Button>
+          </span>
         ) : (
           <Button size="small" variant="outlined" onClick={onJoin}>
             Join
