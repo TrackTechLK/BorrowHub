@@ -67,10 +67,15 @@ export default function CommunityCard({ record }) {
           {/* <Typography gutterBottom variant="h5" component="div">
               {record.name}
             </Typography> */}
-          <Typography variant="body2" color="text.secondary">
-            {record.description ||
-              "No description contains about this community"}
-          </Typography>
+
+          {record.description ? (
+            <span dangerouslySetInnerHTML={{ __html: record.description }} />
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              {record.description ||
+                "No description contains about this community"}
+            </Typography>
+          )}
         </CardContent>
 
         {/* <CardActions>

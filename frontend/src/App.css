@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap');
+
 .TrackTechLK-Link {
   text-decoration: none;
   color: #1976d2;
@@ -99,5 +101,18 @@
 }
 
 .MuiDialog-paper {
-  border-radius: 20px!important;
+  border-radius: 20px !important;
 }
+
+.MuiTypography-root {
+  font-family: "Montserrat" !important;
+}
+
+.MuiMenuItem-root {
+  font-family: "Montserrat" !important;
+}
+
+.RaMenuItemLink-active {
+  color: red;
+}
+  

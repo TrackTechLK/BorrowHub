@@ -20,6 +20,7 @@ import { Login } from "react-admin";
 import RegisterForm from "./registerForm";
 import { WithGlow } from "./WIthGlow";
 import { motion } from "framer-motion";
+import { Logo } from "./Logo";
 
 function Copyright(props) {
   return (
@@ -162,6 +163,7 @@ export default function LoginPage() {
                       }}
                       // elevation={5}
                     >
+                      <Logo />
                       <Box sx={{ width: "100%" }}>
                         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                           <Tabs
