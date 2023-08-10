@@ -9,6 +9,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import SendIcon from "@mui/icons-material/Send";
 import "./MessageList.css";
+import BorrowRequestCard from "../../../../components/BorrowRequestsCard";
+import Button from "@mui/material/Button";
 
 const MY_USER_ID = "apple";
 
@@ -152,6 +154,35 @@ export default function MessageList(props) {
       // Proceed to the next message.
       i += 1;
     }
+
+    tempMessages.push(
+      <BorrowRequestCard
+        record={{
+          accepted: true,
+          borrower: 1,
+          community: 1,
+          created_at: "2023-08-08T14:53:36.838409Z",
+          description: "I need an IC",
+          id: 7,
+          item_type: 1,
+          item_type_name: "IC",
+          updated_at: "2023-08-08T23:47:41.690599Z",
+          username: "admin",
+        }}
+        AcceptButton={() => (
+          // <Button variant="contained" color="info">
+          //   Accept
+          // </Button>
+          <div></div>
+        )}
+        DeclineButton={() => (
+          // <Button variant="contained" color="error">
+          //   Decline
+          // </Button>
+          <div></div>
+        )}
+      />
+    );
 
     return tempMessages;
   };
