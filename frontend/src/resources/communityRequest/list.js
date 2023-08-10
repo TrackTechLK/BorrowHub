@@ -10,8 +10,25 @@ import {
   useUpdate,
   useRefresh,
   useNotify,
+  ChipField,
 } from "react-admin";
 import Button from "@mui/material/Button";
+import { Chip } from "@mui/material";
+
+const StatusChip = (record) => {
+  let chipColor;
+  if (record.status === "PENDING"){
+      chipColor = "primary"
+  }else if (record.status === "ACCEPTED"){
+    chipColor = "success"
+  }else if (record.status === "DECLINED"){
+    chipColor = "error"
+  }
+  
+  return(
+    <Chip label = {record.status} color={chipColor}/>
+  )
+}
 
 const AcceptButton = (record) => {
   console.log(record);
@@ -94,7 +111,7 @@ export const CommunityRequestList = () => (
       <ReferenceField source="community" reference="communities">
         <TextField source="name" />
       </ReferenceField>
-      <TextField source="status" />
+      <WithRecord label="status" render={StatusChip} />
       <WithRecord label="Accept" render={AcceptButton} />
       <WithRecord label="Decline" render={DeclineButton} />
     </Datagrid>
