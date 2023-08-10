@@ -3,6 +3,7 @@ import { AppBar, Title } from "react-admin";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { WithGlow } from "./WIthGlow";
+import { HelpDialog } from "./HelpDialog";
 
 export const CustomAppBar = () => (
   <AppBar>
@@ -19,5 +20,6 @@ export const CustomAppBar = () => (
       </Typography>
     </WithGlow>
     <Box flex="2" />
+    <HelpDialog/>
   </AppBar>
 );
