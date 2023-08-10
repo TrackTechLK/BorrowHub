@@ -12,6 +12,7 @@ import {
 import { ItemCreate } from "../item/create";
 import ItemTypeReferenceInput from "../itemType/referenceInput";
 import { useLocation } from "react-router-dom";
+import ToxicityDetectedInput from "../../components/ToxicityDetectedInput";
 
 export const BorrowRequestCreate = () => {
   const { state } = useLocation();
@@ -37,7 +38,8 @@ export const BorrowRequestCreate = () => {
           validate={required()}
           perPage={10000}
         />
-        <TextInput source="description" />
+        {/* <TextInput source="description" /> */}
+        <ToxicityDetectedInput source={"description"} />
       </SimpleForm>
     </Create>
   );

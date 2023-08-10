@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import { useState } from "react";
 import * as toxicity from "@tensorflow-models/toxicity";
@@ -28,6 +29,8 @@ const ToxicityDetectedInput = ({ label, source, required = true }) => {
   const [tempEvent, setTempEvent] = useState("");
   const [open, setOpen] = useState(false);
   const [toxicities, setToxicities] = useState([]);
+  const [changed, setChanged] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,9 +42,11 @@ const ToxicityDetectedInput = ({ label, source, required = true }) => {
 
   const onChange = (e) => {
     setTempEvent(e);
+    setChanged(true);
   };
 
   const onCheckForToxicity = () => {
+    setLoading(true);
     toxicity.load(threshold).then((model) => {
       //   const sentences = ["you suck"];
 
@@ -66,10 +71,13 @@ const ToxicityDetectedInput = ({ label, source, required = true }) => {
 
         if (detections.length > 0) {
           handleClickOpen();
+          setLoading(false);
           return;
         }
 
         input.field.onChange(tempEvent);
+        setLoading(false);
+        setChanged(true);
 
         /*
           prints:
@@ -102,13 +110,14 @@ const ToxicityDetectedInput = ({ label, source, required = true }) => {
         onChange={onChange}
         value={tempEvent?.target?.value || ""}
       />
-      <Button
+      <LoadingButton
         onClick={onCheckForToxicity}
-        disabled={!tempEvent?.target?.value}
+        disabled={!tempEvent?.target?.value || !changed}
         variant="contained"
+        loading={loading}
       >
         Check for toxicity and save
-      </Button>
+      </LoadingButton>
       <Dialog
         open={open}
         onClose={handleClose}
