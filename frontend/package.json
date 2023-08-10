@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.21.1",
+    "moment": "^2.23.0",
     "@mui/lab": "^5.0.0-alpha.139",
     "@stitches/react": "^1.2.8",
     "@testing-library/jest-dom": "^5.16.5",
@@ -36,6 +38,7 @@
     "production": [
       ">0.2%",
       "not dead",
+      "not ie <= 11",
       "not op_mini all"
     ],
     "development": [
@@ -43,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "shave": "^2.5.4"
   }
 }

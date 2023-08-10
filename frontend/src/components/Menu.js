@@ -69,6 +69,7 @@ export const CustomMenu = () => {
       </Menu.ResourceItem>,
       true,
     ],
+    [<Menu.ResourceItem name="lends" />, true],
     [<Menu.ResourceItem name="categories" />, true],
     [<Menu.ResourceItem name="items" />, true],
     [<Menu.ResourceItem name="item_types" />, true],
