@@ -116,6 +116,7 @@ export const CustomMenu = () => {
     [<Menu.ResourceItem name="return_confirmations" />, true],
     [((<Menu.ResourceItem name="user_communities" />), true)],
     [<Divider />, false],
+    [<Menu.ResourceItem name="events" />, true],
   ];
 
   return (

@@ -41,6 +41,7 @@ import { CommunityShow } from "./resources/community/show";
 import { BorrowRequestCreate } from "./resources/borrowrequest/create";
 import CustomNotification from "./components/Notifications";
 import { UserShow } from "./resources/user/show";
+import Dashboard from "./components/Dashboard";
 import { LendList } from "./resources/lends/list";
 
 const dataProvider = drfProvider(backendURL);
@@ -50,6 +51,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Admin
+          dashboard={Dashboard}
           loginPage={LoginPage}
           dataProvider={dataProvider}
           authProvider={authProvider}
@@ -131,10 +133,11 @@ class App extends Component {
             name="my_communities"
             list={CommunityList}
             edit={EditGuesser}
-            create={CommunityCreate}
+            // create={CommunityCreate}
             show={CommunityShow}
             icon={GroupsIcon}
           />
+          <Resource name="events" list={ListGuesser} />
           <Resource name="register" noLayout disableAuthentication />
         </Admin>
       </BrowserRouter>

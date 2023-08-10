@@ -43,7 +43,7 @@ class ItemType(models.Model):
     # TODO may be add unique together for name and category
 
 
-class Item(models.Model):
+class Item(TimeStampMixin):
     id = models.AutoField(primary_key=True)
     item_type = models.ForeignKey(
         ItemType, on_delete=models.CASCADE, null=False)
@@ -79,7 +79,7 @@ class BorrowRequest(TimeStampMixin):
         'Community', on_delete=models.PROTECT, related_name='borrow_requests')
 
 
-class LendConfirmation(models.Model):
+class LendConfirmation(TimeStampMixin):
     borrow_request = models.ForeignKey(
         BorrowRequest, on_delete=models.CASCADE, null=False
     )
@@ -125,7 +125,7 @@ def update_stock(sender, instance, **kwargs):
         user=instance.creator, community=instance, is_admin=True)
 
 
-class UserCommunity(models.Model):
+class UserCommunity(TimeStampMixin):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_communities"
@@ -147,3 +147,4 @@ class CommunityRequest(models.Model):
         "DECLINED", "DECLINED")], max_length=50, default="PENDING")
 
     # TODO maybe add unique together to user and community
+

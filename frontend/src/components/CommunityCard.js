@@ -32,12 +32,12 @@ export default function CommunityCard({ record }) {
   const navigate = useNavigate();
 
   return (
-    <Card variant="outlined">
-      <CardActionArea
-        onClick={() => {
-          navigate(`/communities/${record.id}/show`);
-        }}
-      >
+    <CardActionArea
+      onClick={() => {
+        navigate(`/communities/${record.id}/show`);
+      }}
+    >
+      <Card variant="outlined">
         <CardMedia
           component="img"
           height="140"
@@ -72,11 +72,12 @@ export default function CommunityCard({ record }) {
               "No description contains about this community"}
           </Typography>
         </CardContent>
-      </CardActionArea>
-      {/* <CardActions>
+
+        {/* <CardActions>
         <ShowButton />
         <EditButton />
       </CardActions> */}
-    </Card>
+      </Card>
+    </CardActionArea>
   );
 }

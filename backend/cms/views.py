@@ -16,6 +16,7 @@ from cms.models import *
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework import filters
+from datetime import datetime
 
 from dotenv import load_dotenv
 import os
@@ -300,6 +301,29 @@ class RegisterView(generics.CreateAPIView):
         else:
             # Customize your error response here
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Task(object):
+    def __init__(self, **kwargs):
+        for field in ('id', 'type', 'time', 'user'):
+            setattr(self, field, kwargs.get(field, None))
+
+class EventViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = EventSerializer
+
+    def list(self, request):
+
+        tasks = [
+            Task(id=1, type='Demo', time=datetime.now(), user=1),
+            Task(id=2, type='Model less demo', time=datetime.now(), user=1),
+            Task(id=3, type='Sleep more', time=datetime.now(), user=1),
+        ]
+
+        data = []
+        serializer = EventSerializer(
+            instance=tasks, many=True)
+        return Response({'count': len(serializer.data), 'next': None, 'previous': None, 'results': serializer.data})
 
 class LendsViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
