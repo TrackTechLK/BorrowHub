@@ -14,6 +14,12 @@ const theme = {
         },
       },
     },
+    MuiTextField: {
+      defaultProps:{
+        variant:"outlined",
+        color: "primary"
+      }
+    },
     MuiButtonBase: {
       defaultProps: {
         variant: 'outlined',

@@ -29,6 +29,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { BorrowRequestListView } from "../borrowrequest/list";
 import { makeStyles } from "@mui/material/styles";
+import { motion, LayoutGroup } from "framer-motion";
 
 const MakeAdminButton = (record) => {
   const [update, { isLoadingUpdate, errorUpdating }] = useUpdate();
@@ -142,13 +143,25 @@ const CommunityShowHeader = () => {
   return (
     <Card variant={"outlined"}>
       <div style={styles.card}>
-        <CardMedia
-          component="img"
-          height="400"
-          src={`https://source.unsplash.com/random?sig=${record.id}`}
-          title="green iguana"
-        />
-        <div
+        <LayoutGroup key={`community-${record.id}`}>
+          <motion.div
+            key={`community-${record.id}`}
+            layout
+            transition={{ duration: 0.3 }}
+          >
+            <CardMedia
+              component="img"
+              height="400"
+              src={`https://source.unsplash.com/random?sig=${record.id}`}
+              title="green iguana"
+            />
+          </motion.div>
+        </LayoutGroup>
+        <motion.div
+          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0.5, scaleY: 1 }}
+          animate={{ opacity: 1, scaleY: 1, animation: { duration: 2000 } }}
+          exit={{ opacity: 0.5, scaleY: 1, animation: { duration: 2000 } }}
           style={{
             position: "absolute",
             bottom: 0,
@@ -167,7 +180,7 @@ const CommunityShowHeader = () => {
           <Typography variant="body2" color="text.secondary">
             {`Created by ${record.creator_username} on ${record.created_date}`}
           </Typography>
-        </div>
+        </motion.div>
       </div>
       <CardContent>
         <span dangerouslySetInnerHTML={{ __html: record.description }} />

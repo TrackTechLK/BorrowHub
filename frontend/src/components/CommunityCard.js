@@ -63,7 +63,7 @@ export default function CommunityCard({ record }) {
           title={`${record.name}`}
           // subheader={`${record.created_at}`}
         />
-        <CardContent>
+        <CardContent style={{ height: 100 }}>
           {/* <Typography gutterBottom variant="h5" component="div">
               {record.name}
             </Typography> */}
