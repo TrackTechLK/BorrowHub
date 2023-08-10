@@ -42,6 +42,7 @@ import { BorrowRequestCreate } from "./resources/borrowrequest/create";
 import CustomNotification from "./components/Notifications";
 import { UserShow } from "./resources/user/show";
 import Dashboard from "./components/Dashboard";
+import { LendList } from "./resources/lends/list";
 
 const dataProvider = drfProvider(backendURL);
 
@@ -73,6 +74,7 @@ class App extends Component {
             icon={CategoryIcon}
           />
           <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
+
           <Resource
             name="borrow_requests"
             list={BorrowRequestList}
@@ -103,6 +105,7 @@ class App extends Component {
             edit={EditGuesser}
           />
           <Resource name="borrows" list={BorrowList} edit={EditGuesser} />
+          <Resource name="lends" list={LendList} edit={EditGuesser} />
 
           <Resource
             name="communities"

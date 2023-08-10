@@ -324,3 +324,17 @@ class EventViewSet(viewsets.ViewSet):
         serializer = EventSerializer(
             instance=tasks, many=True)
         return Response({'count': len(serializer.data), 'next': None, 'previous': None, 'results': serializer.data})
+
+class LendsViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ["owner","current_user"]
+    filterset_fields = ["owner","current_user"]
+
+    def get_queryset(self):
+        return (
+            Item.objects.filter(owner=self.request.user.id).filter(current_user__isnull=False)
+            
+        )
