@@ -25,11 +25,14 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
+import AvatarGroup from "@mui/material/AvatarGroup";
+import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { BorrowRequestListView } from "../borrowrequest/list";
 import { makeStyles } from "@mui/material/styles";
 import { motion, LayoutGroup } from "framer-motion";
+import { randomColor } from "../../utils/colors";
 
 const MakeAdminButton = (record) => {
   const [update, { isLoadingUpdate, errorUpdating }] = useUpdate();
@@ -183,6 +186,31 @@ const CommunityShowHeader = () => {
         </motion.div>
       </div>
       <CardContent>
+      <Typography gutterBottom component="div">
+            Members
+          </Typography>
+        <AvatarGroup total={24} style={{width: 200}}>
+          <Avatar
+            alt="Remy Sharp"
+            src="/static/images/avatar/1.jpg"
+            sx={{ bgcolor: randomColor(1) }}
+          />
+          <Avatar
+            alt="Travis Howard"
+            src="/static/images/avatar/2.jpg"
+            sx={{ bgcolor: randomColor(2) }}
+          />
+          <Avatar
+            alt="Agnes Walker"
+            src="/static/images/avatar/4.jpg"
+            sx={{ bgcolor: randomColor(3) }}
+          />
+          <Avatar
+            alt="Trevor Henderson"
+            src="/static/images/avatar/5.jpg"
+            sx={{ bgcolor: randomColor(4) }}
+          />
+        </AvatarGroup>
         <span dangerouslySetInnerHTML={{ __html: record.description }} />
       </CardContent>
       <CardActions>

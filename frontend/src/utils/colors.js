@@ -42,7 +42,7 @@ export const randomColor = (id) => {
     grey,
     blueGrey,
   ];
-  const color = hueArray[Math.floor(id % hueArray.length)][900];
+  const color = hueArray[Math.floor(id % hueArray.length)][600];
   console.log({ color });
 
   return color;
