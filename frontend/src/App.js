@@ -43,7 +43,7 @@ import CustomNotification from "./components/Notifications";
 import { UserShow } from "./resources/user/show";
 import Dashboard from "./components/Dashboard";
 import { LendList } from "./resources/lends/list";
-
+import { UserList } from "./resources/user/list";
 const dataProvider = drfProvider(backendURL);
 
 class App extends Component {
@@ -61,7 +61,7 @@ class App extends Component {
         >
           <Resource
             name="users"
-            list={ListGuesser}
+            list={UserList}
             edit={EditGuesser}
             icon={PeopleIcon}
             show={UserShow}
