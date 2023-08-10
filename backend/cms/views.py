@@ -1,25 +1,48 @@
-from django.contrib.auth.models import User, Group
-from django.contrib.auth.base_user import BaseUserManager
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth.hashers import make_password
-from django.db.models import F, Count, Value, Q, Case, When
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, status
-from rest_framework.views import APIView
-from rest_framework.utils import json
-from rest_framework.response import Response
 import base64
-import requests
-from rest_framework import permissions
-from cms.serializers import *
-from cms.models import *
-from rest_framework import generics
-from django.contrib.auth.models import User
-from rest_framework import filters
+import os
 from datetime import datetime
 
+import requests
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import Group, User
+from django.db.models import BooleanField, Case, Count, Q, Value, When
+from django_filters.rest_framework import DjangoFilterBackend
 from dotenv import load_dotenv
-import os
+from rest_framework import filters, generics, permissions, status, viewsets
+from rest_framework.response import Response
+from rest_framework.utils import json
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from cms.models import (
+    Borrow,
+    BorrowRequest,
+    Category,
+    Community,
+    CommunityRequest,
+    Item,
+    ItemType,
+    LendConfirmation,
+    ReturnConfirmation,
+    UserCommunity,
+)
+from cms.serializers import (
+    BorrowRequestSerializer,
+    BorrowSerializer,
+    CategorySerializer,
+    CommunityRequestSerializer,
+    CommunitySerializer,
+    EventSerializer,
+    GroupSerializer,
+    ItemSerializer,
+    ItemTypeSerializer,
+    LendConfirmationSerializer,
+    RegisterSerializer,
+    ReturnConfirmationSerializer,
+    UserCommunitySerializer,
+    UserSerializer,
+)
 
 load_dotenv()
 
@@ -96,7 +119,7 @@ class BorrowRequestViewSet(viewsets.ModelViewSet):
     queryset = BorrowRequest.objects.all()
     serializer_class = BorrowRequestSerializer
     permission_classes = [permissions.IsAuthenticated]
-    filterset_fields = ['community']
+    filterset_fields = ["community"]
 
     def create(self, request, *args, **kwargs):
         request.data["borrower"] = request.user.id
@@ -115,9 +138,9 @@ class LendConfirmationViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         request.data["lender"] = request.user.id
 
-        # A user accepts a borrow request means that he has that item. therefore we add it to his inventory
-        borrow_request = BorrowRequest.objects.get(
-            pk=request.data["borrow_request"])
+        # A user accepts a borrow request means that he has that item. therefore we add it to his
+        # inventory
+        borrow_request = BorrowRequest.objects.get(pk=request.data["borrow_request"])
         Item.objects.get_or_create(
             item_type=borrow_request.item_type, owner=request.user
         )
@@ -162,7 +185,8 @@ class GoogleView(APIView):
             str(base64.b64decode(id_token.split(".")[1] + "==="), "utf-8")
         )
 
-        # TODO REFACTOR THIS SHIT. atm one could theoretically login using this random password. Is that a problem?
+        # TODO REFACTOR THIS SHIT. atm one could theoretically login using this random password.
+        # Is that a problem?
         # Does a more elegant way exist?
         # create user if not exist
         try:
@@ -171,8 +195,7 @@ class GoogleView(APIView):
             user = User()
             user.username = user_info["email"]
             # provider random default password
-            user.password = make_password(
-                BaseUserManager().make_random_password())
+            user.password = make_password(BaseUserManager().make_random_password())
             user.email = user_info["email"]
             user.save()
 
@@ -205,15 +228,14 @@ class CommunityViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # print(Community.objects.exclude(users__id__contains=self.request.user.id).annotate(
         #     not_joined=Value(True, output_field=models.BooleanField()))
-        # return Community.objects.annotate(not_joined=Value(True, output_field=models.BooleanField()))
+        # # noqa: W505 return Community.objects.annotate(not_joined=Value(True, output_field=models.BooleanField()))
         return Community.objects.annotate(
-            temp_num=Count("users", filter=Q(
-                users__id__contains=self.request.user.id))
+            temp_num=Count("users", filter=Q(users__id__contains=self.request.user.id))
         ).annotate(
             is_joined=Case(
                 When(temp_num__gt=0, then=Value(True)),
                 default=Value(False),
-                outputField=models.BooleanField(),
+                outputField=BooleanField(),
             )
         )
 
@@ -238,7 +260,7 @@ class MyCommunityViewSet(viewsets.ModelViewSet):
                 is_joined=Case(
                     When(temp_num__gt=0, then=Value(True)),
                     default=Value(False),
-                    outputField=models.BooleanField(),
+                    outputField=BooleanField(),
                 )
             )
         )
@@ -305,36 +327,41 @@ class RegisterView(generics.CreateAPIView):
 
 class Task(object):
     def __init__(self, **kwargs):
-        for field in ('id', 'type', 'time', 'user'):
+        for field in ("id", "type", "time", "user"):
             setattr(self, field, kwargs.get(field, None))
+
 
 class EventViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = EventSerializer
 
     def list(self, request):
-
         tasks = [
-            Task(id=1, type='Demo', time=datetime.now(), user=1),
-            Task(id=2, type='Model less demo', time=datetime.now(), user=1),
-            Task(id=3, type='Sleep more', time=datetime.now(), user=1),
+            Task(id=1, type="Demo", time=datetime.now(), user=1),
+            Task(id=2, type="Model less demo", time=datetime.now(), user=1),
+            Task(id=3, type="Sleep more", time=datetime.now(), user=1),
         ]
 
-        data = []
-        serializer = EventSerializer(
-            instance=tasks, many=True)
-        return Response({'count': len(serializer.data), 'next': None, 'previous': None, 'results': serializer.data})
+        serializer = EventSerializer(instance=tasks, many=True)
+        return Response(
+            {
+                "count": len(serializer.data),
+                "next": None,
+                "previous": None,
+                "results": serializer.data,
+            }
+        )
+
 
 class LendsViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    search_fields = ["owner","current_user"]
-    filterset_fields = ["owner","current_user"]
+    search_fields = ["owner", "current_user"]
+    filterset_fields = ["owner", "current_user"]
 
     def get_queryset(self):
-        return (
-            Item.objects.filter(owner=self.request.user.id).filter(current_user__isnull=False)
-            
+        return Item.objects.filter(owner=self.request.user.id).filter(
+            current_user__isnull=False
         )

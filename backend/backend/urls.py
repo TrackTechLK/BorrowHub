@@ -13,15 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-from cms.views import RegisterView
+from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from cms import views
-from django.contrib import admin
+from cms.views import RegisterView
 
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
@@ -37,8 +35,8 @@ router.register(r"communities", views.CommunityViewSet)
 router.register(r"community_requests", views.CommunityRequestViewSet)
 router.register(r"user_communities", views.UserCommunityViewSet)
 router.register(r"my_communities", views.MyCommunityViewSet)
-router.register(r"lends",views.LendsViewSet)
-router.register(r"events", views.EventViewSet, basename='events')
+router.register(r"lends", views.LendsViewSet)
+router.register(r"events", views.EventViewSet, basename="events")
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
