@@ -1,5 +1,6 @@
 import base64
 import os
+from datetime import datetime
 
 import requests
 from django.contrib.auth.base_user import BaseUserManager
@@ -32,6 +33,7 @@ from cms.serializers import (
     CategorySerializer,
     CommunityRequestSerializer,
     CommunitySerializer,
+    EventSerializer,
     GroupSerializer,
     ItemSerializer,
     ItemTypeSerializer,
@@ -325,36 +327,41 @@ class RegisterView(generics.CreateAPIView):
 
 class Task(object):
     def __init__(self, **kwargs):
-        for field in ('id', 'type', 'time', 'user'):
+        for field in ("id", "type", "time", "user"):
             setattr(self, field, kwargs.get(field, None))
+
 
 class EventViewSet(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = EventSerializer
 
     def list(self, request):
-
         tasks = [
-            Task(id=1, type='Demo', time=datetime.now(), user=1),
-            Task(id=2, type='Model less demo', time=datetime.now(), user=1),
-            Task(id=3, type='Sleep more', time=datetime.now(), user=1),
+            Task(id=1, type="Demo", time=datetime.now(), user=1),
+            Task(id=2, type="Model less demo", time=datetime.now(), user=1),
+            Task(id=3, type="Sleep more", time=datetime.now(), user=1),
         ]
 
-        data = []
-        serializer = EventSerializer(
-            instance=tasks, many=True)
-        return Response({'count': len(serializer.data), 'next': None, 'previous': None, 'results': serializer.data})
+        serializer = EventSerializer(instance=tasks, many=True)
+        return Response(
+            {
+                "count": len(serializer.data),
+                "next": None,
+                "previous": None,
+                "results": serializer.data,
+            }
+        )
+
 
 class LendsViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    search_fields = ["owner","current_user"]
-    filterset_fields = ["owner","current_user"]
+    search_fields = ["owner", "current_user"]
+    filterset_fields = ["owner", "current_user"]
 
     def get_queryset(self):
-        return (
-            Item.objects.filter(owner=self.request.user.id).filter(current_user__isnull=False)
-            
+        return Item.objects.filter(owner=self.request.user.id).filter(
+            current_user__isnull=False
         )

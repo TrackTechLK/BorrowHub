@@ -163,4 +163,3 @@ class CommunityRequest(models.Model):
     )
 
     # TODO maybe add unique together to user and community
-
