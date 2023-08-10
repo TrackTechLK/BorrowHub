@@ -83,11 +83,11 @@ const AcceptButton = ({ record }) => {
   };
 
   return (
-    <div style={{ display: "flex", width: "90%", justifyContent: "flex-end" }}>
+    // <div style={{ display: "flex", width: "90%", justifyContent: "flex-end" }}>
       <Button variant="contained" onClick={onAccept} disabled={record.accepted}>
         Accept
       </Button>
-    </div>
+    // </div>
   );
 };
 
@@ -105,7 +105,7 @@ const DeclineButton = ({ record }) => {
   };
 
   return (
-    <div style={{ display: "flex", width: "10%", justifyContent: "flex-end" }}>
+    // <div style={{ display: "flex", width: "10%", justifyContent: "flex-end" }}>
       <Button
         variant="contained"
         onClick={onDecline}
@@ -114,6 +114,6 @@ const DeclineButton = ({ record }) => {
       >
         Decline
       </Button>
-    </div>
+    // </div>
   );
 };
