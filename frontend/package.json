@@ -5,6 +5,8 @@
   "dependencies": {
     "@mui/lab": "^5.0.0-alpha.139",
     "@stitches/react": "^1.2.8",
+    "@tensorflow-models/toxicity": "^1.2.2",
+    "@tensorflow/tfjs": "^4.10.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
