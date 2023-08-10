@@ -5,7 +5,7 @@
   background: white;
   border-top: 1px solid #eeeef1;
   position: fixed;
-  width: calc(100% - 20px);
+  width: 53%;
   bottom: 0px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .compose-input {
-  flex:1 1;
+  width:50%;
   
   margin: 10px;
   
