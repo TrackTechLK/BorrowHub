@@ -25,20 +25,26 @@ const Dashboard = () => {
     variant: "outlined",
   };
 
-  const [welcomeVisible, setWelcomeVisible] = useState(true);
+  const [welcomeVisible, setWelcomeVisible] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
   const [open, setOpen] = useSidebarState();
 
   useEffect(() => {
-    if (isFirst) {
-      setOpen(false);
-      setTimeout(() => {
-        setWelcomeVisible(false);
+    const val = localStorage.getItem("initial");
+
+    if (val != "1") {
+      if (isFirst) {
+        setWelcomeVisible(true);
+        setOpen(false);
         setTimeout(() => {
-          setOpen(true);
-        }, 1000);
-        setIsFirst(false);
-      }, 5000);
+          setWelcomeVisible(false);
+          setTimeout(() => {
+            setOpen(true);
+          }, 1000);
+          setIsFirst(false);
+          localStorage.setItem("initial", "1");
+        }, 5000);
+      }
     }
   }, []);
 
@@ -60,6 +66,30 @@ const Dashboard = () => {
       {/* <Card style={style}> */}
       <motion.div layout transition={{ duration: 1 }}>
         <Divider textAlign="center">
+          <Typography variant="h5">Global stats</Typography>
+        </Divider>
+        <Grid container style={{ margin: 10 }}>
+          {[
+            ["Items lent", 12304],
+            ["Items borrowed", 43261],
+            ["Communities", 4391],
+            ["Users", 243238],
+          ].map((item) => {
+            return (
+              <Grid item md={3} sm={sm}>
+                <Card style={style} variant="outlined">
+                  <Typography variant="h3">
+                    <CountUp end={item[1]} start={!welcomeVisible} />
+                  </Typography>
+                  <Typography variant="h4" color="error">
+                    {item[0]}
+                  </Typography>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+        <Divider textAlign="center">
           <Typography variant="h5">Your stats</Typography>
         </Divider>
         <Grid container style={{ margin: 10 }}>
@@ -73,7 +103,7 @@ const Dashboard = () => {
               <Grid item md={3} sm={sm}>
                 <Card style={style} variant="outlined">
                   <Typography variant="h3">
-                    <CountUp end={item[1]} />
+                    <CountUp end={item[1]} start={!welcomeVisible} />
                   </Typography>
                   <Typography variant="h4" color="primary">
                     {item[0]}

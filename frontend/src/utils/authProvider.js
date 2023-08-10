@@ -119,5 +119,6 @@ export const authProvider = {
   },
   logout: async () => {
     localStorage.removeItem("auth");
+    localStorage.removeItem("initial");
   },
 };
