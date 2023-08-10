@@ -4,7 +4,13 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Stack,
 } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
+import Brightness5RoundedIcon from "@mui/icons-material/Brightness5Rounded";
+import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
+import { Rating } from "@mui/material";
 import React from "react";
 import {
   Button,
@@ -17,6 +23,7 @@ import {
   useShowContext,
   TextField,
 } from "react-admin";
+import { Chip } from "@mui/material";
 import { CommunityListView } from "../community/list";
 
 const UserShowHeader = () => {
@@ -40,7 +47,38 @@ const UserShowHeader = () => {
         <Typography variant="body2" color="text.secondary">
           {record.email}
         </Typography>
-        <Typography variant="body2" color="text.secondary"></Typography>
+        <Divider />
+        <Typography variant="body2" color="text.secondary">
+          Courtesy Rating:
+        </Typography>
+        <Rating name="read-only" value={4} readOnly size="small" />
+        <Divider />
+        <Typography variant="body2" color="text.secondary">
+          Badges Earned:
+        </Typography>
+        <Stack direction="row" spacing={1}>
+          <Chip
+            variant="outlined"
+            color="primary"
+            size="small"
+            icon={<AutoAwesomeRoundedIcon />}
+            label="Benevolent"
+          />
+          <Chip
+            variant="outlined"
+            color="success"
+            size="small"
+            icon={<Brightness5RoundedIcon />}
+            label="Angelic"
+          />
+          <Chip
+            variant="outlined"
+            color="error"
+            size="small"
+            icon={<StarsRoundedIcon />}
+            label="Charitable"
+          />
+        </Stack>
       </CardContent>
     </Card>
   );
@@ -50,6 +88,7 @@ export const UserShow = () => {
   return (
     <Show>
       <UserShowHeader />
+
       <TabbedShowLayout>
         <TabbedShowLayout.Tab label="Communities">
           <ReferenceManyField
