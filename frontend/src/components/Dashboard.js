@@ -49,7 +49,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Card style={{ padding: 20 }}>
+    <Card style={{ padding: 20}}>
       <Title title="Welcome!" />
       {welcomeVisible && (
         <Lottie
@@ -81,7 +81,7 @@ const Dashboard = () => {
                   <Typography variant="h3">
                     <CountUp end={item[1]} start={!welcomeVisible} />
                   </Typography>
-                  <Typography variant="h4" color="error">
+                  <Typography variant="h6" color="error" textAlign={'center'}>
                     {item[0]}
                   </Typography>
                 </Card>
@@ -105,7 +105,7 @@ const Dashboard = () => {
                   <Typography variant="h3">
                     <CountUp end={item[1]} start={!welcomeVisible} />
                   </Typography>
-                  <Typography variant="h4" color="primary">
+                  <Typography variant="h6" color="primary">
                     {item[0]}
                   </Typography>
                 </Card>
@@ -125,7 +125,7 @@ const Dashboard = () => {
           </Grid>
           <Grid item md={6}>
             <Divider textAlign="center">
-              <Typography variant="h5">friends actions</Typography>
+              <Typography variant="h5">Friends actions</Typography>
             </Divider>
             <CardContent style={{ maxHeight: 500, overflowX: "scroll" }}>
               <Timeline />

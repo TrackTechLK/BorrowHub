@@ -5,6 +5,8 @@ import {
   CardMedia,
   Typography,
   Stack,
+  Avatar,
+  CardHeader,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
@@ -40,6 +42,7 @@ const UserShowHeader = () => {
         src={`https://source.unsplash.com/random?sig=${record.id}`}
         title="green iguana"
       />
+      {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {record.username}
