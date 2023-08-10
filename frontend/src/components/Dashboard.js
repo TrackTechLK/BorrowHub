@@ -50,7 +50,7 @@ const Dashboard = () => {
 
   return (
     <Card style={{ padding: 20 }}>
-      <Title title="Welcome to the administration" />
+      <Title title="Welcome!" />
       {welcomeVisible && (
         <Lottie
           loop={false}
