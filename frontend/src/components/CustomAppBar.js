@@ -17,6 +17,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Messenger from "../chat/src/components/Messenger";
+import { HelpDialog } from "./HelpDialog";
 import "./AppBar.css";
 const ChatButton = () => {
   const [open, setOpen] = React.useState(false);
@@ -57,5 +58,6 @@ export const CustomAppBar = () => (
     </WithGlow>
     <Box flex="2" />
     <ChatButton />
+    <HelpDialog/>
   </AppBar>
 );
