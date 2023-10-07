@@ -43,13 +43,6 @@ The backend of the system is built using django. It serves as the bridge between
 #### Data Storage and Management
 The PostgreSQL database stores and manages all the data necessary for BorrowHub. It is designed with a well-structured schema to efficiently organize information related to users, accounts, transactions, communities, and more.
 
-#### Features
-1. **Tables:** The database schema consists of tables for storing user profiles, account details, transaction records, loan information, and other relevant data.
-
-2. **Data Integrity:** Data integrity constraints, such as foreign keys, indexes, and unique constraints, are enforced to maintain the accuracy and consistency of the data.
-
-3. **Query Optimization:** SQL queries are optimized to ensure fast and efficient retrieval of data, especially during high traffic periods.
-
 ## Contributors
 
 <a href="https://github.com/TrackTechLK/BorrowHub/graphs/contributors">
