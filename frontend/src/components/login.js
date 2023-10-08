@@ -93,10 +93,6 @@ export default function LoginPage() {
     setValue(newValue);
   };
 
-  React.useEffect(() => {
-    console.log({ value });
-  }, [value]);
-
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>

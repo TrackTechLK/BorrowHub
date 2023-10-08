@@ -44,37 +44,57 @@ export const authProvider = {
       throw new Error("Network error");
     }
   },
+  // checkError: async (error) => {
+  //   const status = error.status;
+  //   if (status === 401 || status === 403) {
+  //     // Token is invalid or expired
+  //     const auth = JSON.parse(localStorage.getItem("auth"));
+  //     const refresh = auth.refresh;
+
+  //     if (!refresh) {
+  //       // localStorage.removeItem('access');
+  //       throw new Error("No refresh token");
+  //     }
+
+  //     const request = new Request(`${backendURL}/token/refresh/`, {
+  //       method: "POST",
+  //       body: JSON.stringify({ refresh }),
+  //       headers: new Headers({ "Content-Type": "application/json" }),
+  //     });
+
+  //     try {
+  //       const response = await fetch(request);
+  //       if (response.status < 200 || response.status >= 300) {
+  //         throw new Error(response.statusText);
+  //       }
+  //       const { access } = await response.json();
+  //       localStorage.setItem("auth", JSON.stringify({ ...auth, access }));
+  //       console.log('check error add new token', access)
+  //     } catch (err) {
+  //       console.log(err);
+  //       // localStorage.removeItem('access');
+  //       // localStorage.removeItem('refresh');
+  //       throw new Error("Network error");
+  //     }
+  //   }
+  // },
   checkError: async (error) => {
     const status = error.status;
+
     if (status === 401 || status === 403) {
+      console.log({ status });
       // Token is invalid or expired
       const auth = JSON.parse(localStorage.getItem("auth"));
-      const refresh = auth.refresh;
 
+      const refresh = auth.refresh;
       if (!refresh) {
-        // localStorage.removeItem('access');
         throw new Error("No refresh token");
       }
 
-      const request = new Request(`${backendURL}/token/refresh/`, {
-        method: "POST",
-        body: JSON.stringify({ refresh }),
-        headers: new Headers({ "Content-Type": "application/json" }),
-      });
+      auth.access = null;
+      localStorage.setItem("auth", JSON.stringify(auth));
 
-      try {
-        const response = await fetch(request);
-        if (response.status < 200 || response.status >= 300) {
-          throw new Error(response.statusText);
-        }
-        const { access } = await response.json();
-        localStorage.setItem("auth", JSON.stringify({ ...auth, access }));
-      } catch (err) {
-        console.log(err);
-        // localStorage.removeItem('access');
-        // localStorage.removeItem('refresh');
-        throw new Error("Network error");
-      }
+      return Promise.reject();
     }
   },
   handleCallback: async () => {
@@ -111,14 +131,47 @@ export const authProvider = {
     cleanup();
     return Promise.resolve();
   },
+  // checkAuth: async () => {
+  //   const { access } = JSON.parse(localStorage.getItem("auth"));
+  //   if (!access) {
+  //     throw new Error();
+  //   }
+  // },
   checkAuth: async () => {
-    const { access } = JSON.parse(localStorage.getItem("auth"));
-    if (!access) {
-      throw new Error();
+    const { access, refresh } = JSON.parse(localStorage.getItem("auth"));
+    if (!refresh) {
+      console.log("no refresh token");
+      return Promise.reject();
+    } else {
+      // if (!access) {
+      // console.log("no access token");
+      console.log("refreshing access token on checkAuth");
+      const request = new Request(`${backendURL}/token/refresh/`, {
+        method: "POST",
+        body: JSON.stringify({ refresh }),
+        headers: new Headers({ "Content-Type": "application/json" }),
+      });
+
+      try {
+        const response = await fetch(request);
+        if (response.status < 200 || response.status >= 300) {
+          throw new Error(response.statusText);
+        }
+        const { access } = await response.json();
+        localStorage.setItem("auth", JSON.stringify({ access, refresh }));
+      } catch (err) {
+        console.log(err);
+        // localStorage.removeItem('access');
+        // localStorage.removeItem('refresh');
+        throw new Error("Network error");
+      }
     }
   },
   logout: async () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("initial");
+  },
+  getPermissions: async () => {
+    return "";
   },
 };
